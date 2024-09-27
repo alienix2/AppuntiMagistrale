@@ -88,6 +88,20 @@ Un sistema di monitoring di solito ha più di un probe, oguno dei quali monitora
 **Software e hardware probes:**
 fino ad ora abbiamo visto tutti probe che erano a livello software, tuttavia esistono anche probe hardware oppure ibridi.
 In alcuni ambiti risulta fondamentale utilizzare probe hardware o ibridi. Non sono argomento specifico di questo corso. *Esempio:* utilizzo dell'harware aggiuntivo per monitorare un computer di modo da evitare di usare gli stessi componenti che devo monitorare per il monitoraggio.
+usare probe hardware **NON** è intrusivo di solito.
+*Esempio:* SMART per gli hard drive per verificare quali settori non funzionano e avvertire anche nel caso in cui un settore fallirà a breve. È presente una parte hardware che legge i dati e una parte software che che analizza i dati e permette di stampare effettivamente le informazioni. Di solito la parte hardware è una black box, quindi colui che vende gli hard disk deve fornire un'interfaccia.
 
+**Pro e contro degli hardware probe:**
+Pro: diminuisce l'intrisività
+Contro: deve rifarsi ad un software per stampare i dati e solitamente l'hardware usato è black box (o comunque difficile da usare se non tramite l'interfaccia fornita)
 
+**Tipi di software monitoring:**
+- nel processo che si vuole monitorare
+- nel sistema operativo
+- in un processo probe separato (è l'unica alternativa se non posso accedere al sorgente ne del sistema operativo e ne del processo)
 
+**Pro e contro del software probe:**
+Pro: a volte hanno accesso a più informazioni rispetto alle soluzioni hardware
+Contro: sono quasi sempre intrusivi.
+
+*ToDo at home:* guardare video in fondo alle slide. Dura un'ora ma la parte importante sono i primi 19 minuti.
