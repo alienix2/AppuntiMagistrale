@@ -5,7 +5,7 @@ Go to go site for initial info: https://go.dev/
 **For the next time:** Chose the editor that we want to use and install go
 
 **Introduction:**
-developed by google, at first it was not public then it was published to world. The main goal was to develop the app Scalable at first.
+developed by google, at first it was not public then it was published to world. The main goal was to develop the app Scalable at first.  
 Go is similar to c for certain aspect, is fast to compile and is really fast in code execution also.
 *Example:* Hello world in go:
 ```go
@@ -20,8 +20,8 @@ func main() {
 Go is a compiled language.
 Go statements are usually separated by semicolon ";". The compiler is able to run code without semicolon by inserting the semicolon where they should go.
 
-To compile and run a file we can use: ```go run file.go```
-To just compile we can use: ```go build file.go```
+To compile and run a file we can use: ```go run file.go```  
+To just compile we can use: ```go build file.go```  
 *Note:* you can use specific flags to specific some options, for instance -o to choose a name for the output file
 
 *Other example of code:*
@@ -35,7 +35,6 @@ import (
 
 func main() {
 	fmt.Println("Welcome to the playground!")
-
 	fmt.Println("The time is", time.Now())
 }
 ```
