@@ -7,10 +7,11 @@ Prof. Pinelli
 - limitations of machine learning
 - **View of examples and use cases**
 
-**Text books:** papers
+**Text books:** papers and github
+**Github repo:** https://github.com/fpinell/mlsa
 
 **Moodle password:** MLSA2425
-**Exam:** Seminar presenting one (or more) paper. This might change, maybe he will think of something different. **NOT CONFIRMED**
+**Exam:** Seminar presenting one (or more) paper. This might change, maybe he will think of something different. **NOT CONFIRMED**  
 **Actual exam** is a project done in group dealing with a specific topic/paper presented in the course. It will be combined with a presentation of the project with simple question regarding choices taken.
 
 **Schedule:** Tuesday: 10:30-13:30, Thursday: 11:30-13:30
