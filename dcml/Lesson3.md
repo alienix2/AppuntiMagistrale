@@ -58,3 +58,7 @@ Un altro formato è il semplice .txt contenente tutto il testo. Quello notiamo c
 *Nota:* il .json non è facilissimo da leggere per un umano, ma è molto comodo per un computer. In più comunque è possibile convertire il .json in un .csv, magari con modalità custom da noi definite.
 
 *Per spiegazione sulla GUI e funzionalità di wire-shark guardare anche le slide:* https://e-l.unifi.it/pluginfile.php/3265301/mod_resource/content/9/DCML-CPS_3_Monitoring_2.pdf
+
+## Top
+
+top è il prob incluso nei sistemi Unix. È facile utilizzarlo tramite CLI per monitorare il sistema in tempo reale. Permette di specificare il monitoraggio solo di specifiche parti.
