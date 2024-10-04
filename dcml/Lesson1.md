@@ -13,18 +13,18 @@ Questo secondo insieme si definisce come software dependabilities.
 **Validazione:** il processo di determinare se quello che abbiamo realizzato corrisponde alle aspettative. (Il sistema rispetta le specifiche?)
 **Verifica:** il processo di determinar se il sistema funziona correttamente. (Il sistema è ben realizzato?)
 Sono basate entrambe su:
-- **Specifica:** descrizione dicosa il sistema dovrebbe poter fare
-- **Ralizzazione:** descrizione di cosa il sistema è e fa in effettivo
+- **Specifica:** descrizione di cosa il sistema dovrebbe poter fare
+- **Realizzazione:** descrizione di cosa il sistema è e fa in effettivo
 
 Cose da validare:
 - **Proprietà funzionali**
-- **Dependability:** capacità di evitare che il servizio fallisca un numero di volte inaccettabile e di garantire che le parti che falliscono più spesso abbiano poche conseguenze sul sitema. (*Esempio:* Cerco di garantire che un sistema dove i treni non si rompono spesso, ma anche se uno si rompe in mezzo ai binari non si hanno conseguenze catastrofiche)
+- **Dependability:** capacità di evitare che il servizio fallisca un numero di volte inaccettabile e di garantire che le parti che falliscono più spesso abbiano poche conseguenze sul sistema. (*Esempio:* Cerco di garantire che un sistema dove i treni non si rompono spesso, ma anche se uno si rompe in mezzo ai binari non si hanno conseguenze catastrofiche)
 
 **Come dovrebbe quindi funzionare:**
-Servizio corretto --Fallisce--> Fornisce un servizio erratto
+Servizio corretto --Fallisce--> Fornisce un servizio errato
 Se il sistema è ben fatto è presente una freccia inversa dato che il sistema è capace di riprendersi (restoration). *Esempio:* in un server si hanno due dischi in RAID, se il primo fallisce si rimuove, si usa il secondo e se ne inserisce uno nuovo che servirà da backup.
 
-Nella realtà ci sono diverse gradi di funzionamento di un servizio. *Esempio:* un treno funziona, cosa deve fare per funzionare correttamento? Quando è che il suo servizio è corretto? Quando si muove in orario e si ferma quando deve? Oppure semplicemente se nessuno muore a bordo? Dipende da cosa decido di analizzare e da come definisco davvero un sistema che funziona bene.
+Nella realtà ci sono diverse gradi di funzionamento di un servizio. *Esempio:* un treno funziona, cosa deve fare per funzionare correttamente? Quando è che il suo servizio è corretto? Quando si muove in orario e si ferma quando deve? Oppure semplicemente se nessuno muore a bordo? Dipende da cosa decido di analizzare e da come definisco davvero un sistema che funziona bene.
 *Altro esempio:* Ho un protocollo di rete, posso controllare quanto gestite bene i casi di fallimento, posso controllare he non risponda mai oltre un certo tempo di risposta, posso controllare che non ci siano troppi settori del disco che sono rotti, posso controllare che il software funzioni sempre nel modo corretto. Alcune di queste cose richiedono gradi alti di successo (99.9999%) altre no.
 
 **Proprietà di un sistema dependable:**
@@ -45,7 +45,7 @@ ci sono alcuni modi per fare sì che il sistema sia dependable:
 **Threats:** Ci sono 3 tipi di minacce: Faults, errors e failures.
 Un fault causa uno o più erorri che a loro volta portano ad uno o più failures. *Es.* la corrente non va, io provo ad accenderla ma ho un errore dato che la corrente non si accende, decido di andarmene del quadro ma cado perchè non vedo (failure)
 
-**Safety:** ci sono failures che non creano grandi problemi e altri che sono catastrofici. Io voglio un sistema dove non succedono i secondi. Di solito questo vuol dire che nessun uomo, infrastruttura e ambiente che viene danneggiato dal nostro sistema. *Es.* il mio sistema proetegge gli uomini ma causa 10 ettari di distruzione di un bosco, questo è comunque catastrofico.
+**Safety:** ci sono failures che non creano grandi problemi e altri che sono catastrofici. Io voglio un sistema dove non succedono i secondi. Di solito questo vuol dire che nessun uomo, infrastruttura e ambiente che viene danneggiato dal nostro sistema. *Es.* il mio sistema protegge gli uomini ma causa 10 ettari di distruzione di un bosco, questo è comunque catastrofico.
 Un sistema safety critycal è un sistema in cui io devo garantire di non avere failure catastrofici.
 
 **Safety e Availability:**
