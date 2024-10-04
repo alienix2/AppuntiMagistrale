@@ -28,5 +28,5 @@ The lectures will also have practical lessons which is why it is known how much 
 **For non attending:** same but there is a written test instead of the *in itinere interviews**
 
 **Group project:**
-Carried out in group (2-4 people). The project must encompass the initial SPM phase. The topic proposed by the group. At the end must deliver documentation and a presentation. There will be a fixed date in which documentations must be sobmitted
+Carried out in group (2-4 people). The project must encompass the initial SPM phase. The topic proposed by the group. At the end must deliver documentation and a presentation. There will be a fixed date in which documentations must be submitted
 *Note:* single project is acceptable but not recommended cause it's not really adherent to reality.
