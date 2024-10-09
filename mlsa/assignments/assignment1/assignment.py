@@ -1,12 +1,11 @@
 import pandas as pd
-import numpy as np
 
 us_companies_df = pd.read_csv('./us_companies.csv')
 us_taxes_df = pd.read_csv('./us_state_taxes.csv')
 
 # 1. Sort states by number of companies
 us_companies_by_state = us_companies_df['State'].value_counts().sort_values(ascending=False)
-# print(us_companies_by_state)
+print(us_companies_by_state)
 
 # 2. Compute the average earning of all the companies
 us_average_earnings = us_companies_df.Earnings_last_year.mean()
