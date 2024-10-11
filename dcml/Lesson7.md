@@ -57,7 +57,23 @@ La linea verde è detta **Fisher discriminant** e permette di separare i rossi d
 ## Logistic regression
 
 Questo algoritmo è usato per fare previsioni binarie. L'idea è di trovare una funzione che vada a minimizzare l'errore di classificazione. Questa funzione è di solito una funzione logistica. La differenza dalla linear regression in cui si cercano di predire valori piuttosto che assegnare classi.  
-Si considerano più variabili e si definisce una value con valore 1 data dalla combinazione di specifici valori su queste variabili. La probabilità di questa variabile va da 0 ad 1. (*più in dettaglio nelle ![slides](/slides/DCML-CPS_6)*)
+Si considerano più variabili e si definisce una value con valore 1 data dalla combinazione di specifici valori su queste variabili. La probabilità di questa variabile va da 0 ad 1. (*più in dettaglio nelle [slides](/slides/DCML-CPS_6)*)
 
-Usando la maximum likelihood possiamo trovare i valori da assegnare alle singole variabili per massimizzare (**MLE** maximum likelihood estimation)
+Usando la maximum likelihood possiamo trovare i valori da assegnare alle singole variabili per massimizzare (**MLE** maximum likelihood estimation).  
+Questo tipo di modelli devono prima essere allenati per poi poter esser utilizzati.
 
+## Neural networks
+
+Le **(A)NNs** (Artificial neural networks) sono dei classificatori che si basano su un modello matematico che simula il funzionamento del cervello degli animali. Questi modelli sono composti da neuroni che sono collegati (con delle connessioni chiamate **edge**) fra loro, e simulano (alla lontana) il funzionamento dei neuroni in un cervello. Ogni connessione può trasmettere un'informazione da un neurone all'altro. Ogni neurone e ogni edge hanno dei valori di peso assegnati.
+
+I neuroni sono divisi in layer, e ogni layer ha dei neuroni con dei pesi diversi. L'idea è che un segnale vada dal primo layer (input layer) e raggiunga l'ultimo layer (output layer) passando per tutti i layer, possibilmente anche più di una volta. I layer che non sono quello di input e quello di output sono chiamati **input layers**
+
+A seconda del numero di classi sono necessari altrettanti neuroni nell'output layer. Una deep NN è una neural network che ha molti layer nascosti (più di 1).
+
+Allenare una rete neurale vuol dire andare ad assegnare dei pesi corretti ai singoli edge. Il modo in cui si ottiene questo è partendo con dei valori casuali e provando via via a trovare quali sono i valori che permettono di arrivare al layer di output con valori il più possibile vicini alla realtà. Si utilizzano diverse **epochs** (epoche, iterazioni) in cui nella prima si comincia in modo del tutto casuale per poi andare a rifinire la nostra scelta in base ai risultati precedenti. Ci sono diverse euristiche e regole che si possono applicare per decidere di quanto una singola epoca può cambiare i pesi e come. Di solito il numero di epoche è scelto a priori, alternativamente si può anche decidere di stroppare le iterazioni quando l'errore scende sotto una certa soglia. A seconda dei dati il numero delle epoche necessarie può essere valutato.
+
+*Nota:* le reti neurali sono difficili da catalogare come deterministiche o indeterministiche. Forse si può dire che sono deterministiche ma il prof. non è convinto (grande Atif)
+
+### Multilayer perceptron
+
+Un multilayer perceptron è una rete neurale che ha almeno un layer nascosto. Questo tipo di rete è in grado di approssimare qualsiasi funzione continua. Una delle caratteristiche che lo distinguono rispetto alle altre neural network è la caratteristica di usare la back-propagation per l'allenamento. In pratica questo significa che i layer precedenti imparano dai successivi e non solo il viceversa.
