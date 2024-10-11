@@ -6,6 +6,7 @@ Machine learning is a way to train a machine so that it can do one job in an aut
 Machine learning has trivial uses but is also used in critical use cases like public transport.
 
 **Good software:**
+
 - Correct
 - Usable (*Example:* a user friendly social networks)
 - Efficient (*Example:* a social networks that doesn't drain your battery fast)
@@ -26,7 +27,9 @@ Today the majority of the time needed to write code is actually spent for testin
 **Software and program analysis** refers to the process of examining and evaluating the software artifacts. The main goal is to improve things such as reliability, efficiency and readability.
 
 There are two main approaches:
+
 - **Static** analysis
+
 - **Dynamic** analysis
 
 **Static** analysis involves examining the software without running the code. It uses syntax checking, data flow analysis and more techniques. It uses tools like linters and reverse engineering tools.
@@ -40,6 +43,7 @@ There are two main approaches:
 # Machine learning recap
 
 The main components are:
+
 - **Data:** it contains information, it can be structured or not structured. Data usually contains features and attributes relevant to a specific problem
 - **Model:** a model is a mathematical representation of a pattern in the data. There are many algorithms used to make prediction and classification.
 - **Training:** training is the process of feeding data to a model. The data can be labeled or unlabeled.
@@ -47,6 +51,7 @@ The main components are:
 *Example:* Tik-Tok decides what to show you on your specific "for you" page.
 
 There are 3 types of machine learning:
+
 - **Supervised learning:** uses labeled data
 - **Unsupervised learning:** uses unlabeled data (and needs to create clusters on its own)
 - **Reinforced learning:** creates new data as it goes.
@@ -54,13 +59,14 @@ There are 3 types of machine learning:
 *Example:* I have a game, I try to improve the way the AI plays overtime.
 
 Main machine learning tasks:
+
 - **Classification:** classifies data points into categories or classes based on their features. (Example: email spam detection, medical diagnosis)
 - **Regression:** predicting continuous values or numerical outcomes based on input features. (*Example:* stock price prediction, demand forecasting. *Real example:* a Wallmart in Florida made big earnings by analyzing the specific requests of customers during hurricanes).
 - **Clustering:** is used only in unsupervised learning. Clustering means grouping similar data points into clusters based on their characteristics and patterns. (*Example:* customer segmentation, image segmentation)
 - **Anomaly detection:** analyzing the data to find if there is any data which deviated from the rest
 - **Dimensionality reduction:** having less redundant data makes works easier and faster
-    - **Feature selection and extraction:** is important to identify the right features needed and also to create new, more specific, features.
-    - **Applications:** data visualization, feature engineering, image and signal processing, text mining and natural language.
+  - **Feature selection and extraction:** is important to identify the right features needed and also to create new, more specific, features.
+  - **Applications:** data visualization, feature engineering, image and signal processing, text mining and natural language.
 
 # Why use machine learning for software analysis
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"math"
+	"sort"
 )
 
 func factorial(n int) (result float64) {
@@ -72,5 +73,33 @@ func mingle_strings(s1, s2 string) string {
 	for i := 0; i < len(s1); i++ {
 		result += string(s1[i]) + string(s2[i])
 	}
+	return result
+}
+
+func anagrams(words []string) [][]string {
+	mapper := make(map[string][]string)
+	for _, w := range words {
+		rw := []rune(w)
+		sort.Slice(rw, func(i, j int) bool { return rw[i] < rw[j] })
+		sw := string(rw)
+
+		res, ok := mapper[sw]
+
+		if ok {
+			res = append(res, w)
+		} else {
+			res = []string{w}
+		}
+		mapper[sw] = res
+	}
+
+	result := make([][]string, 0)
+
+	for _, value := range mapper {
+		if len(value) > 1 {
+			result = append(result, value)
+		}
+	}
+
 	return result
 }
