@@ -44,7 +44,7 @@ Questo algoritmo si basa sul teorema di Bayes. L'idea è di creare un modello ch
 ![Naive Bayes](../Screenshots/naive_bayes)
 *Esempio:* classificare se una persona è maschio o femmina in base ad alcune sue caratteristiche.
 ![Naive Bayes esempio](../Screenshots/male_female)
-Si usa una distribuzione gaussiana per calcolare la probabilità di appartenenza ad una classe. *Più dettagli in [slides](/slides/DCML-CPS_6)*  
+Si usa una distribuzione gaussiana per calcolare la probabilità di appartenenza ad una classe. *Più dettagli in [slides](./slides/DCML-CPS_6)*  
 *Nota:* non andremo in dettaglio sugli algoritmi, è importante capire come funzionano, non sapere come derivarli.
 
 **Linear Discriminant Analysis (LDA):**  
@@ -57,7 +57,7 @@ La linea verde è detta **Fisher discriminant** e permette di separare i rossi d
 ## Logistic regression
 
 Questo algoritmo è usato per fare previsioni binarie. L'idea è di trovare una funzione che vada a minimizzare l'errore di classificazione. Questa funzione è di solito una funzione logistica. La differenza dalla linear regression in cui si cercano di predire valori piuttosto che assegnare classi.  
-Si considerano più variabili e si definisce una value con valore 1 data dalla combinazione di specifici valori su queste variabili. La probabilità di questa variabile va da 0 ad 1. (*più in dettaglio nelle [slides](/slides/DCML-CPS_6)*)
+Si considerano più variabili e si definisce una value con valore 1 data dalla combinazione di specifici valori su queste variabili. La probabilità di questa variabile va da 0 ad 1. (*più in dettaglio nelle [slides](./slides/DCML-CPS_6)*)
 
 Usando la maximum likelihood possiamo trovare i valori da assegnare alle singole variabili per massimizzare (**MLE** maximum likelihood estimation).  
 Questo tipo di modelli devono prima essere allenati per poi poter esser utilizzati.
