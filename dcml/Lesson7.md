@@ -44,7 +44,7 @@ Questo algoritmo si basa sul teorema di Bayes. L'idea è di creare un modello ch
 ![Naive Bayes](../Screenshots/naive_bayes)
 *Esempio:* classificare se una persona è maschio o femmina in base ad alcune sue caratteristiche.
 ![Naive Bayes esempio](../Screenshots/male_female)
-Si usa una distribuzione gaussiana per calcolare la probabilità di appartenenza ad una classe. *Più dettagli in [slides](./slides/DCML-CPS_6.pdf)*  
+Si usa una distribuzione gaussiana per calcolare la probabilità di appartenenza ad una classe. *Più dettagli in [slides](./slides/DCML-CPS_6.pd)*  
 *Nota:* non andremo in dettaglio sugli algoritmi, è importante capire come funzionano, non sapere come derivarli.
 
 **Linear Discriminant Analysis (LDA):**  

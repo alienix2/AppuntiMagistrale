@@ -34,5 +34,5 @@ func count_change(d []int64, n int64) int64 {
 		for j := 0; j < len(d); j++ {
 		}
 	}
-	return 1 //ToDo
+	return 1 // ToDo
 }

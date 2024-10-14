@@ -103,3 +103,5 @@ We are creating a Best-effort broadcast algorithm, so we consider:
 - **Uniform integrity:** no message is B-delivered more than once.
 
 **Problem:** if the sender crashed before sending the message, the message will never be delivered but this will always be compliant with the protocol above.
+
+*Note:* see the slides for specific examples of scenarios in which the protocol fails and succeeds.
