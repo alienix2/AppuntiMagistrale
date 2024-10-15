@@ -47,15 +47,15 @@ Una prima valutazione che bisogna fare sull'algoritmo è la valutazione che ha d
 Alcuni di questi casi sono più problematici di altri. In particolar modo i FN possono portare a conseguenze catastrofiche mentre i FP solitamente portano soltanto ad un eccesso di sicurezza e verifiche successive che non erano veramente necessarie. *Es.* il modello dice ad una persona che ha alte probabilità di avere il cancro che in realtà sta bene -> la persona non si cura e muore. *Esempio inverso:* il modello dice ad una persona sana che potrebbe avere il cancro, lei va a fare ulteriori analisi e scopre che tutto e apposto, al più si è presa uno spavento evitabile.
 
 **Diagramma delle metriche basate su TP, TN, FP, FN:**
-![Diagramma delle metriche basate su TP, TN, FP, FN](../Screenshots/metrics_diagram)
-Partendo da questo diagramma ci sono altre metriche che si posson ottenere combinando più di una di questa. Ad esempio **F-score(B)**=$\frac{(1 + B^2)*PR}{(B^2P)R}$
+![Diagramma delle metriche basate su TP, TN, FP, FN](../Screenshots/metrics_diagram)  
+Partendo da questo diagramma ci sono altre metriche che si posson ottenere combinando più di una di questa. Ad esempio **F-score(B)**= $\frac{(1 + B^2)*PR}{(B^2P)R}$
 
 **Problemi di queste metriche:**  
 soprattutto se si parla di dataset che sono sbilanciati le metriche sopra descritte potrebbero avere dei problemi.  
 *Es:* si considera un campione preso da una sala di urgenza di un ospedale dove quasi tutte le persone hanno il cancro. Si considera poi un algoritmo che dice che tutte le persone hanno il cancro. Questo algoritmo può arrivare ad avere un accuracy, precision e recall molto alta e un FP bassissimo, ma ciononostante non è un buon algoritmo, non ha senso di esistere ed è inutile. Il problema è che il dataset di test non era stato creato correttamente.
 
 **Un'altra metrica:**
-![Un'altra metrica](../Screenshots/MCC)
+![Un'altra metrica](../Screenshots/MCC)  
 In questa metrica:
 - -1 significa che l'algoritmo ha catalogato tutto correttamente
 - 1 significa che l'algoritmo ha catalogato tutto in modo errato.
