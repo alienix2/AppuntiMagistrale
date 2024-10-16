@@ -12,7 +12,8 @@ The **value** of the project is it's main pro. The **risk** of the project is th
 A risk is something that could happen, but it's not sure that it will happen. This means that all the risks should be considered, but they must also be analyzed in how probable they are to occur.  
 Both **value** and **risks** can be evaluated qualitatively or quantitatively. *Note:* every project has a risk, given that if you have a project with no risks, it's most likely cause you didn't identify them yet.
 
-### Project value:  
+### Project value  
+
 There are **direct** and **indirect** values.  
 The first direct value that comes to mind is the actual **profit** that the project can generate (*Note:* earnings-spendings = profit).  
 The **indirect** values are the ones that are not directly related to the profit. For example, a project could be started to increase the company's reputation. Another example of indirect value is the value you can generate by producing a software that enables the creation of other software.
@@ -23,7 +24,7 @@ this term refers to the capacity of sustaining the project and his outputs after
 **Alignment with strategic objectives:**  
 this means that you must always evaluate if the project you are creating is relevant in the market and for the organization. *I.e:* if a project is about something that no one cares about, maybe it's better to drop it.
 
-### Risks:
+### Risks
 
 **Resource availability:**  
 one of the first things done in a project is evaluating if the resources are available. Given that, you must always reconsider the first evaluation that you may have done cause most of the times the availability of specific resources is out of your control and might change really fast.
