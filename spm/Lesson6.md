@@ -6,7 +6,7 @@ is the time it takes to recover the investment. It's a good indicator of the pro
 
 ## Return on investment ROI
 
-ROI measures how much we get back for every dollar invested. It calculates the average annual profit and then transform it to a percentage of the total investment.
+ROI measures how much we get back for every dollar invested. It calculates the average annual profit and then transform it to a percentage of the total investment. (*Note:* profit = returns - investments, annual profit = profit/project duration, ROI = annual profit/investment)
 
 ### Discounted cash flow/inflation
 
@@ -45,3 +45,7 @@ Example of each part:
 There are many different techniques to identify stakeholders, in particular the most used organizes them into a 2x2 matrix that matches **power** (low -> high) and **interest** (negative -> positive). In this way it's easy to decide how to deal with every single stakeholder (*I.e:* there is a stakeholder with high power and positive interest, you must try to satisfy his needs cause otherwise the project will end badly).
 
 **Note:** all of the above should be included in the feasibility study for our group projects.
+
+## sustainability
+
+In this case sustainability is not about the environment, but about the economic and social aspects. It's important to consider the long term effects of a project. Analysing the sustainability of the project is necessary to be sure that it will still be profitable in the long run. In this part is also defined the **Break-even point** (BEP, it indicates the number of items that you need to sell in order to make profit).
