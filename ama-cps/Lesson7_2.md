@@ -41,3 +41,13 @@ It's possible to define a **reduction algorithm** that allow to reduce a failure
 2. **Phase 2:** consensus agreement, the processes agree on a vector based on the value that has been proposed by the majority of the processes.
 
 3. **Phase 3:** the processes decides for the first non null value of it's copy of the vector V_p
+
+*Note* in the previous algorithm we consider an eventually S so that if more than half of the processes fails consensus can still be reached.
+
+One process is picked as a coordinator (**coordinator rotation**) and in each round the coordinator is changed. If the coordinator is suspected by another process then it is skipped.
+
+Since this algorithm respects eventually S, it is equivalent to an eventually W. This creates a cut between synch and asynch side cause eventually W is limit to possible asynchrony.
+
+## Main problems of the model
+
+This model has been proposed without considering the real implementation and also it cannot handle process dynamically entering the system.
