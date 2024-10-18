@@ -15,7 +15,8 @@ def read_cpu_usage():
 def write_dict_to_csv(filename, dict, first_time=False):
     if first_time:
         f = open(filename, "w")
-    f = open(filename, "a")
+    else:
+        f = open(filename, "a")
     w = csv.DictWriter(f, dict.keys())
     if first_time:
         w.writeheader()
