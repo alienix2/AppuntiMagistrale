@@ -43,4 +43,3 @@ The main phases of this process are:
 If the proposal is rejected at first the manager can try to improve it and present it again. Also another important thing to consider is that the client could also ask to change something in the project already in this phase.
 
 **For our project:** document to send to the professor before the 31st of October.
-
