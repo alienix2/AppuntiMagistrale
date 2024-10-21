@@ -113,3 +113,36 @@ public class Client {
   System.out.println("Now: " + cal.today());
 }
 ```
+
+### Service-oriented Architecture (SOA)
+
+Service-oriented architecture (SOA) is a centralized architecture in which multiple services communicate with each other to deliver a service using standardized interfaces. It’s most useful for building large, complex systems that require integration between services.
+
+**Characteristics of a service:**
+
+- Services interact through a communication protocol over the so-called enterprise service bus
+- Services are loose coupled and can be easily replaced
+- represents a specific enterprise activity
+- is black-box (encapsulation)
+- is self-contained
+- may be made of other services
+- provides a well defined interface
+- is reusable
+- Services maybe implemented by different providers (different administrative
+organization) using different underlying technologies
+- A distributed application can be thought as a service composition where services operate in harmony
+
+#### Coordination vs Orchestration
+
+- **Orchestration:** a central controller is responsible for the coordination of the services. The controller is responsible for the flow of the process and the interaction between the services.
+- **Coordination:** the services are responsible for themselves. Each one knows what to do and when to do it.
+
+#### Main Entities in SOA
+
+- The **Broker** makes information about services available to consumers
+- The **Provider** makes available a service and provides the Broker with the required information
+- The **Consumer** locates services in the Broker registry, and then bind to the service Provider to invoke it
+*Note:* the interaction between the Consumer and the Provider is governed by the **service contract**
+
+*Example of image recognition and processing:*
+![service_oriented_architecture](../Screenshots/image_recognition)
