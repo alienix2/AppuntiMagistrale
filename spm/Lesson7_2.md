@@ -17,4 +17,8 @@ Requirements and goals are close but they are not the same thing. Starting from 
 
 ### Project requirements vs Software Requirements
 
-next lecture
+Project requirements are a superset of the software requirements:
+
+- Many software development projects will include activities that are indirectly related to the software being built:
+  - e.g., training of resources, production of user manuals, hardware procurement, setup of an infrastructure to provide user support, setup of the infrastructure to distribute the system, etc.
+  - Project requirements are often at a higher level of abstraction than the software requirements

@@ -139,7 +139,8 @@ organization) using different underlying technologies
 
 #### Main Entities in SOA
 
-- The **Broker** makes information about services available to consumers
+ The **Broker** makes information about services available to consumers
+
 - The **Provider** makes available a service and provides the Broker with the required information
 - The **Consumer** locates services in the Broker registry, and then bind to the service Provider to invoke it
 *Note:* the interaction between the Consumer and the Provider is governed by the **service contract**
