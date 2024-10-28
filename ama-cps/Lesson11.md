@@ -129,4 +129,16 @@ Applying the above to the concept of reliability, we can say that the reliabilit
 
 #### Instantaneous failure rate
 
-The istantaneous failure rate is the probability that a component fails at time t given that it has survived until time t. We denote it as $\lambda_X(t) = \frac{f_X(t)}{R_X(t)}$. If we consider the exponential distribution we realize that actually $\lambda_x(x) = L$ where L is constant.
+The instantaneous failure rate is the probability that a component fails at time t given that it has survived until time t. We denote it as $\lambda_X(t) = \frac{f_X(t)}{R_X(t)}$. If we consider the exponential distribution we realize that actually $\lambda_x(x) = L$ where L is constant.
+
+*Note:* as per the discrete case, there are many other continuous random variables, like **Uniform**, **Normal**, **Gamma**, **Beta**, **Weibull**, etc. And each has it's use case.
+
+## Mean Mode, Median and Moments
+
+**Median:** the median of a random variable X is the value that divides the distribution into two equal parts. That is: $P(X<x) = \frac{1}{2}$ and $P(X>x) = \frac{1}{2}$
+**Mode:** the mode of a random variable X is the value that appears most frequently in the distribution. That is, $f_X(m) = \max f_X(x)$
+**Mean:** the mean of a random variable X is the expected value of X. That is, $E[X] = \int_{-\infty}^{\infty} x f_X(x) dx$ in **continuous** or $E[X] = \sum_{x \in \text{range}(X)} x p_X(x)$ in **discrete**
+
+### Mean of exponential
+
+The mean of an exponential random variable X is $E[X] = \frac{1}{\lambda}$ which is exactly the inverse of the rate $\lambda$. The **expected lifetime** of **Mean time to failure** is $\frac{1}{\lambda}$
