@@ -1,6 +1,6 @@
 # System architectures
 
-There are two main strategies to deploy components on node **Vertical** and **Horizonal** distribution.
+There are two main strategies to deploy components on node **Vertical** and **Horizontal** distribution.
 
 ## Centralized architecture
 
@@ -58,8 +58,137 @@ We usually consider these kind of organizations in layers:
 
 In this kind of architecture there is no distinction between clients and servers. Every node can act as a client and as a server. Who is a client and who is a server is determined only by the way it's acting in a specific period of time.
 
-The peer-to-peer architecture can be structured or unstructured. In the structured way we usually have some kind of **special peer** that have some kind of special role. In the unstructured way we don't have any kind of special peer.
+The peer-to-peer architecture can be **structured** or **unstructured**. In the structured way we usually have some kind of **special peer** that have some kind of special role. In the unstructured way we don't have any kind of special peer.
 
 There is usually an overlay network that defines how the peer can communicate and join the net.
 
-### Communications in a P2P network (ToDo alone from slides)
+### Unstructured P2P
+
+In this case the peers are connected in a random way. The peers can join and leave the network at any time. The peers can also communicate with each other in a random way. When a peer joins the network he usually needs to know at least 1 peer from which he can obtain a list of other existing peers.
+
+#### Flooding
+
+To obtain a **resource** we use the idea of **flooding**. A peer passes that receives a query can discard it if it has already received it, otherwise it can handle the request if he can, and otherwise he can keep on flooding to it's neighbors. These kind of requests usually contain a **TTL** (time to live) that indicates a number of hops after which the packet is removed from the net.
+
+#### Random walk
+
+This approach is a variation of the flooding one. In this case the peer that receives a request can decide to forward it to a random neighbor. This approach is usually more efficient than the flooding one. The main issue is that we cannot make assumptions that allow us to guarantee that a node receives a message at which he should respond. This may happen if randomly the packet doesn't reach the "correct" neighbor. (*Note:* looking at the book we can see a proof of why actually on average this approach is equivalent to the flooding one, **with a much lower number of packets exchanged**)
+
+### Structured P2P
+
+In this network we have a specific topology like: a ring, a tree, a mesh, etc.
+We have a **DHT** (Distributed Hash Table) that is used to store the information about the peers. Each resource is associated with a key, so the system stores (key,value) pairs.
+
+Each key can be returned through the use of a hash function and each peer has the key assigned using the same function.
+
+The **lookup function** is used to find the peer that has the key associated with a specific resource. The lookup function is usually implemented using a **recursive algorithm**.
+
+#### Example: Chord
+
+Rules of the Chord network:
+
+- Nodes and objects are assigned 𝑚-bit identifiers that are computed using a consistent hashing function as SHA-1.  
+*Note:* A consistent hashing function ensures that when a hash table is resized, only 𝐾/𝑛 keys needs to be remapped on average, where 𝐾 is the number of keys, and 𝑛 is the number of slots
+- The space of keys is organized in a ring with at most 2𝑚 elements.  
+- An object with key 𝑘 is assigned to the node with the smallest identifier 𝑖𝑑 ≥ 𝑘 (call it
+the successor succ(𝑘))
+- Each node 𝑛 contains a routing table (called finger table) with 𝑚 elements: the 𝑖th
+entry of node 𝑛 will contain succ((𝑛 + 2𝑖−1)𝑚𝑜𝑑 2𝑚)
+- Looking up an object with key 𝑘 reduces to deliver the request to its successor: a node
+passes the query to the closest successor of 𝑘 in its finger table, i.e., the “largest” one on the circle whose ID is smaller than 𝑘
+
+![chord](../Screenshots/chord.png)
+*Note:* the main issue about this idea is that it might be hard to implement in real life.
+
+## Hierarchical architecture
+
+Peers are classified into two groups: **super-peers** and **week peers**. The super-peers are responsible for the management of the network and the week peers are responsible for the data exchange.
+
+*Example:* Skype in the first versions used this kind of architecture.
+
+Every weak peer must be connected to a super-peer. All the communication between two peers relies over a super-peer.
+
+## Hybrid architectures
+
+In this case we have a mix of the previous architectures. *I.e:* we can have a P2P network that uses a server to store the data.
+
+In real life this is the most common kind of architecture. Some examples are the **cloud computing**, **edge computing** and **block-chain system**
+
+## Cloud computing
+
+**Definition (NIST):** Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.
+
+*Note:* this definition is not really useful to read on its own, we need to understand what the different parts that compose it mean. This definition is based on a pay-per-use cloud idea and a system that uses virtual machines.
+
+### Organization in cloud computing
+
+- **Hardware:** provides tools to manage the hardware underneath
+- **Infrastructure:** provides tools to manage the virtual machines
+- **Platform:** provides tools to manage the applications
+- **Software:** provides tools to manage the application that already exist in the cloud
+
+The main characteristics of the cloud are:
+
+- **On-demand self-service:** the user can provision the resources without the need of human interaction with the service providers. *I.e:* I open AWS and I am able to pick what I want to use on my own.
+- **Broad network access:** the resources are available over the network
+- **Resource pooling:** the resources are shared among multiple users. The user can sometimes pick resources located in specific areas (*I.e:* I have a client in Asia I look for my resources to be in Asia).
+- **Rapid elasticity:** the resources can be scaled up or down quickly based on the user's demand.
+- **Measured service:** the resources are monitored and the user is billed based on the usage. This also means that you can have access to reports on how you are using the resources you are paying for
+
+### Service models
+
+- **IaaS (Infrastructure as a Service):** the user can rent virtual machines and storage. The user is responsible for the management of the virtual machines and the storage. *I.e:* AWS, Azure, Google Cloud
+- **PaaS (Platform as a Service):** the user can rent a platform to develop applications. The user is responsible for the development of the application. In this case the user cannot configure the machine. *I.e:* Google App Engine, Heroku
+- **SaaS (Software as a Service):** the user can rent a software. The user is responsible for the use of the software. The user might be allowed to make some modification to the app. *I.e:* Google Docs, Office 365.
+
+*Note:* there are two kind of clouds usually, the **public cloud** and the **private cloud**. The public cloud is a cloud that is available to everyone, the private cloud is a cloud that is available only to a specific organization. There can be **hybrid cloud** which means that we have a cloud that is public and interacts with a private part (or viceversa).
+
+## Edge computing
+
+**Definition:** Edge computing is a distributed computing paradigm that brings computation and data storage closer to the location where it is needed, to improve response times and save bandwidth.
+
+### Edge vs Cloud
+
+- **Latency and bandwidth:** the edge computing is usually faster than the cloud computing. The edge computing is usually used when the latency is a critical factor.
+- **Privacy and security:** the edge computing is usually more secure than the cloud computing. Sometimes company have specific security policies that doesn't allow to process the data on the cloud.
+- **Availability:** the edge computing is usually more available than the cloud computing. This is because nodes can work on their own while being offline and go online only to sync the changes.
+
+#### Deployment and orchestration
+
+The deployment of the edge computing is usually more complex than the cloud computing. The edge computing usually requires the use of **orchestration** to manage the resources. This is because of:
+
+- **limitation of resources:** many edge nodes may have limited resources
+- **heterogeneity:** the edge nodes may have different hardware and software
+- **dynamic workloads:** the edge nodes may have different workloads
+
+### Fog computing
+
+**Definition:** Fog computing is a distributed computing infrastructure in which some application services are handled at the network edge in the place where data is generated.
+
+*Note:* Prof. Thinks that there is no actual different between fog and edge computing. It's just two names for the same thing for marketing purposes.
+
+The **fog** nodes are the nodes that are in the middle between the edge and the cloud. The **fog** nodes are usually used to preprocess the data before sending it to the cloud, but this can also be achieved using the edge nodes.
+
+## Block-chain architecture
+
+In this case we are talking about a system that allows the registration of transactions into distributed ledgers.
+
+In this case we are thinking of a P2P network in which the nodes doesn't trust each-other. The system is usually organized into three layers:
+
+- **Network layer:** the layer that represents the p2p network representing the participants
+- **Consensus layer:** the layer that represents the rules that are used to validate the transactions
+- **Application layer:** the layer that represents the application that is built on top of the blockchain (*I.e:* a smart-contract)
+
+When a transaction is ready a node must decide to communicate it to the other ledgers. The **validators** (sometimes referred as **miners**) validate them, group them in a block that is appended to the ledger and then propagate the blocks to the others in the network.
+
+There must be a way to understand who is allowed to add blocks to the network. This means that the peers must all achieve consensus using an alone algorithm. The most famous algorithm is the **Proof of Work** algorithm.
+
+The two options are:
+
+- a small selected group is identified as a trust-third party
+- the consensus is achieved through the use of a distributed algorithm that is based on the idea that the majority of the nodes are honest.
+
+### Kinds of block-chain
+
+- **Permissionless:** the blockchain is open to everyone. *I.e:* Bitcoin
+- **Permissioned:** the blockchain is open only to a specific group of people. *I.e:* Hyperledger

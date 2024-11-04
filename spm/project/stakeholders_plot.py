@@ -13,6 +13,7 @@ adjusted_stakeholders = [
     {"name": "Technical Partners", "power": 2.1, "influence": 1.1},
     {"name": "Competitors", "power": 3, "influence": 2.85},  # Adjusted influence
     {"name": "Naysayers/Detractors", "power": 1.1, "influence": 1.9},  # Adjusted power
+    {"name": "B2B Companies", "power": 2.8, "influence": 3},
 ]
 
 # Extract the adjusted data points
@@ -42,7 +43,11 @@ for i, name in enumerate(adjusted_names):
         fontsize=9,
         ha="right"
         if adjusted_influences[i] > 1.5
-        and (name != "Investors/Funders" and name != "Healthcare Professionals")
+        and (
+            name != "Investors/Funders"
+            and name != "Healthcare Professionals"
+            and name != "B2B Companies"
+        )
         else "left",
         va="bottom" if adjusted_powers[i] < 2 else "top",
         xytext=(3, 3),

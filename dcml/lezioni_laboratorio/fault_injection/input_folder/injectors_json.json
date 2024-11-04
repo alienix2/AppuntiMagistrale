@@ -1,0 +1,24 @@
+[{
+  "tag": "HTTP",
+  "type":  "HTTPRead",
+  "parallel_reads": 1,
+  "sites_csv": "input_files/websites_urls.csv"
+  }, {
+  "tag": "Disk_default",
+  "type": "Disk",
+  "n_workers": 10,
+  "n_blocks": 10
+  }, {
+  "tag": "CPU_default",
+  "type": "CPU"
+  }, {
+  "tag": "Memory_default",
+  "type":  "Memory",
+  "items_for_loop": 1234567
+  }, {
+  "tag": "Deadlock_50_locks",
+  "type":  "Deadlock",
+  "n_locks": 50,
+  "n_threads": 3
+  }
+]
