@@ -192,3 +192,9 @@ The two options are:
 
 - **Permissionless:** the blockchain is open to everyone. *I.e:* Bitcoin
 - **Permissioned:** the blockchain is open only to a specific group of people. *I.e:* Hyperledger
+
+## A case study of a P2P system: Bitcoin
+
+The idea of analyzing this case study is to understand how all the theory we discussed can be implemented in real life.
+
+*Note:* this is also discussed in [Lesson_10 of the AMA-CPS course](../ama-cps/Lesson10.md)
