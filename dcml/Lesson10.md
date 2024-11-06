@@ -23,7 +23,7 @@ L'idea è di arrivare ad ottenere un DNN che è in grado di non cascare in situa
 
 Il nostro corso inizierà con l'analisi di dati come quelli delle immagini che hanno solitamente 3 componenti **RGB** (Red, Blue and Green)
 
-Per questo useremo le slide fatte da **Martin** (grandissimo Martin).
+Per questo useremo le slide fatte da **Martin** (grandissimo Martin): <https://docs.google.com/presentation/d/1TVixw6ItiZ8igjp6U17tcgoFrLSaHWQmMOwjlgQY9co/pub#slide=id.p>
 
 ### Softmax classification
 
