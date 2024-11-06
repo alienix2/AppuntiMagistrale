@@ -3,16 +3,16 @@ package main
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"strconv"
 )
 
 // home handler function writing bytes to a slice that already has a response body
-func home(w http.ResponseWriter, r *http.Request) {
+// it's a method defined against the application struct
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// If the request URL path is not "/" then return a 404 not found response
 	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+		app.notFound(w)
 		return
 	}
 
@@ -21,6 +21,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// file in the slice.
 	files := []string{
 		"./ui/html/base.tmpl.html",
+		"./ui/html/partials/nav.tmpl.html",
 		"./ui/html/pages/home.tmpl.html",
 	}
 
@@ -29,8 +30,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// w.Write([]byte("Hello from home"))
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 		return
 	}
 
@@ -39,32 +39,33 @@ func home(w http.ResponseWriter, r *http.Request) {
 	// err = ts.Execute(w, nil)
 	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
-		log.Println(err.Error())
+		app.serverError(w, err)
 		http.Error(w, "Internal Server Error", 500)
 	}
 }
 
-func snippetView(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	// I extract the value of the ID from the query and try to convert it to integer
 	// If it cannot be converted or is less than 1, I return a 404 not found response
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 
 	if err != nil || id < 1 {
-		http.NotFound(w, r)
+		app.notFound(w)
 		return
 	}
 	// w.Write([]byte("Display the snippet"))
 	fmt.Fprintf(w, "Display a specific snipper with ID %d", id)
 }
 
-func snippetCreate(w http.ResponseWriter, r *http.Request) {
+func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	// r.Method is an HTTP method, if it's not POST then return a 405 method not allowed response
-	if r.Method != "POST" {
+	// if r.Method != "POST" {
+	if r.Method != http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
 		// w.WriteHeader(405)
 		// w.Write([]byte("Method not allowed"))
 		// Same as above (http.StatusMethodNotAllowed = 405)
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -76,4 +77,9 @@ func headerMap(w http.ResponseWriter) {
 
 	// w.Header().Add("Cache-Control", "public")
 	// w.Header().Add("Cache-Control", "max-age=31536000")
+}
+
+func downloadHandler(w http.ResponseWriter, r *http.Request) {
+	// Note: this doesn't automatically sanitize the file name, so you should do that
+	http.ServeFile(w, r, "./ui/static/file.zip")
 }
