@@ -29,7 +29,7 @@ Esistono diverse tecniche che permettono di evitare questo problema. Nel nostro 
 
 In realtà l'operazione di data whitening viene di solito eseguita da un convolutional layer dato che è un'operazione che può essere eseguita utilizzando una moltiplicazione per una matrice e aggiungendo un bias, esattamente come succede con un filtro di un convolutional layer.
 
-### Batch normalization
+### Batch normalization basics
 
 Il **batch normalization** è una tecnica che permette di evitare il problema di utilizzare direttamente la **sigmoid function**, ovvero che andando nei valori molto alti e molto bassi non riesco ad imparare bene dato che vengono appiattiti troppo (come si può vedere dal grafico della scorsa lezione).
 
@@ -47,3 +47,5 @@ Applicando questa normalizzazione posso utilizzare la **sigmoid function** senza
 >![RELU_batch_normalization](../Screenshots/RELU_batch_normalization.png)
 
 Per utilizzare la batch normalization ho bisogno dei valori della media e della deviazione standard di ogni batch. Questi valori vengono calcolati durante il training e vengono utilizzati per normalizzare i dati. **Questi valori vengono poi utilizzati anche in fase di test** per normalizzare i dati in modo che la rete possa fare una valutazione corretta.
+
+*Nota:* Guardare il github di Martin Görner per vedere come funziona l'utilizzo delle neural network in TensorFlow: <https://github.com/GoogleCloudPlatform/tensorflow-without-a-phd/blob/master/tensorflow-mnist-tutorial/keras_04_mnist_convolutional.ipynb> **Aprire con Colab per poter anche eseguire il codice**

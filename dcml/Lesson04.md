@@ -1,4 +1,4 @@
-## Perchè fare monitoring
+# Perchè fare monitoring
 
 Nella lezione precedente abbiamo visto come funziona il monitoring. Tuttavia occorre notare che nessuno ci paga per fare la parte di monitoring, questo significa che dobbiamo farla soprattutto per noi stessi.  
 Nella pratica si esegue il monitoring per capire se c'è qualcosa di pericoloso che potrebbe succedere (o sta già succedendo) nel tuo sistema.  
@@ -14,6 +14,7 @@ Grazie allo studio del sistema ottengo un **fault model**.
 
 È chiamato così l'atto di inserire manualmente dei fault nel sistema. Il punto fondamentale è che devono già essere presenti dei sistemi di monitoring prima che si inizi a fare questo processo, alternativamente non si ottengono informazioni.  
 Tipologie di fault injection:
+
 - **Hardware fault injection:** si iniettano fault a livello hardware. *Esempio:* costringo un registro ad avere uno specifico valore
 - **Software fault injection:** si iniettano fault a livello software. *Esempio:* modifico un software che utilizza il mio software di modo che lo utilizzi male, e osservo cosa questo causa.
 
@@ -26,6 +27,7 @@ per prima cosa occorre premurarsi di analizzare un caso in cui il fault causa ef
 *Ricordiamo:* esempio della corrente che non va, se nessuno entra nella stanza di sicuro nessuno si farà male per colpa di quella luce.
 
 ## Schema di un esempio di fault injection
+
 ![Fault Injection](../Screenshots//2024-10-04-145939_hyprshot.png)
 Alcune cose da notare.  
 La parte di workload sta ad indicare che io devo testare il fault durante il normale workload (carico di lavoro) di modo da vedere cosa accade in quello specifico caso.  
@@ -35,6 +37,7 @@ La parte di workload sta ad indicare che io devo testare il fault durante il nor
 La definizione di un modello di fault è necessaria quando non c'è già un modello adeguato per il sistema.  
 *Esempio:* un cliente viene da noi e ci chiede di gestire il monitoring del suo sistema specifico.  
 Ci sono due parti fondamentali da capire per creare il modello:
+
 - **Field Failure Data Analysis (FFDA):** si analizzano i dati di fallimento del campo. A volte questa tecnica è complessa perché magari il failure si verifica raramente o in modo del tutto casuale (almeno in apparenza) *Esempio:* se un sistema è già in produzione e ha già avuto dei problemi, posso analizzare i dati di quei problemi per capire cosa è successo. *Esempio specifico:* un'azienda ci dice che durante uno specifico periodo di tempo tutti i giorni alla stessa ora il sistema funziona male, devo cercare di capire perché. Eseguo questa verifica identificando innanzitutto quando succede di specifico e poi andando a guardare cosa succede nel sistema in quel periodo di tempo in effettivo.
 - **Failure Modes and Effects Analysis (FMEA):** si analizzano i modi in cui il sistema può fallire e gli effetti che questi fallimenti possono avere. In questo caso si parte da uno specifico failure che pensiamo si possa verificare, proviamo a vedere cosa succede se il fault in effetti succede. (Ovvero provo a vedere se ci sono delle cause che potrebbero causarlo e provo a farle avvenire) *Esempio:* ho paura di cosa accade in caso di un attacco DDOS, attacco il mio sistema con un DDOS.
 
@@ -78,11 +81,13 @@ Il punto fondamentale è che di solito nella fault injection si cambiano gli out
 Il punto fondamentale del robustness testing è cercare di capire se ci sono alcuni input che possono effettivamente causare problemi al sistema e che simulano degli input che in effetti qualcuno di malevolo potrebbe decidere di inviare al nostro sistema. *Esempio:* il sistema si aspetta un integer, io provo a mandare un NAN oppure una stringa e vedo se si comporta in modo corretto per rispondere a questo input errato (e magari malevolo).
 
 Alcuni esempi di robustness testing:
+
 - **Fuzz testing:** si mandano input random al sistema per vedere come si comporta. Questo è un test molto semplice ma che può dare risultati molto interessanti.
 - **Bit-flip:** si cambiano uno (o più) bit in modo casuale per vedere cosa succede. Questo è un test molto interessante perché può simulare un errore hardware.
 - **Data based type:** si mandano dati che non sono del tipo corretto per vedere cosa succede. *Esempio:* se il sistema si aspetta un intero, io mando una stringa.
 
 Di solito questi test utilizzano una scala per decidere quanto è importante il crash che viene causato chiamata **Crash scale**:
+
 - **Catasrophic:** il sistema non funziona più, l'app diventa corrotta o la macchina si riavvia da sola
 - **Restart:** l'applicazione si pianta e deve essere riavviata
 - **Abort:** l'applicazione termina in modo anomalo
