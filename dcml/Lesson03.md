@@ -1,51 +1,47 @@
-## Introduzione sulle lezioni di laboratorio
+# Lezione 3 - Monitoring (part 2)
 
-A partire dalla prossima volta ci saranno delle **lezioni di laboratorio**. Dovrà comunque essere usato il laptop personale.
-Il linguaggio che verrà usato è Java, tuttavia imparare il linguaggio non è l'obiettivo del corso. Ci saranno degli snippet di codice mostrato in python ma questo semplicemente perché è il linguaggio più utilizzato per machine learning.
+# Introduzione alle Lezioni di Laboratorio
+# Monitoring (Parte 2)
 
-# Monitoring (part 2)
+In questa lezione, continuiamo a esplorare il concetto di **monitoring** introdotto nella lezione precedente. Fino a poco tempo fa, era comune monitorare sistemi composti da **singoli computer**, ma oggi, nella maggior parte dei casi, i sistemi sono **distribuiti** e comprendono **dispositivi** sparsi in tutto il mondo. Di conseguenza, il monitoraggio deve considerare non solo il singolo dispositivo, ma l'intero sistema distribuito.
 
-Con questa lezione continuiamo con quello introdotto nella precedente lezione. Abbiamo parlato di monitoring per sistemi singoli ma oggi giorno è molto raro che i sistemi che vogliamo monitorare presentino un singolo computer o comunque dei computer isolati. Notiamo che spesso parliamo di dispositivi che sono anche in parti diverse del mondo ma devono essere monitorati come insieme.  
-Ovviamente possiamo pensare a dei sistemi che permettono ai singoli dispositivi di monitorarsi in autonomia, tuttavia ci sono diverse problematiche in questo approccio.  
-*Esempio:* considero due dispositivi, il primo è degradato all'80% e il secondo al 70%, sono entrambi vicini all'essere inutilizzabili ma sono entrambi ancora in utilizzo, tuttavia se consideriamo l'insieme la situazione è molto peggiore perchè a breve se entrambi si rompono non ci saranno più modalità semplici per recuperare il sistema  
-*Altro esempio:* considero la web-security. Ho due dispositivi, il primo riceve un numero alto di ping e il secondo pure. Se i due non si controllano a vicenda potrebbero semplicemente pensare che ci sia un aumento di accessi mentre in realtà analizzando tutto il sistema si potrebbe dedurre che in effetti è in atto un attacco DDOS.  
+Esempi di Problemi nel Monitoraggio di Sistemi Distribuiti:
 
-## Monitoring di sistemi distribuiti
+- **Dispositivi degradati**: considero due dispositivi, il primo è degradato all'80% e il secondo al 70%, sono entrambi vicini all'essere inutilizzabili ma sono entrambi ancora in utilizzo. Tuttavia, se consideriamo nell'insieme la situazione non è ottimale, perchè a breve, se entrambi si rompessero, non ci saranno più modalità semplici per recuperare il sistema.
 
+- **Sicurezza Web**: ho due dispositivi, il primo riceve un numero alto di ping e il secondo pure. Se i due non si controllano a vicenda potrebbero semplicemente pensare che ci sia un aumento di accessi, mentre in realtà, analizzando tutto il sistema, si potrebbe dedurre che in effetti è in atto un attacco DDOS.
+
+#### Monitoring di Sistemi Distribuiti
 **Domande da farsi:**
-- È semplice monitorare i sistemi distribuiti?
-- È sempre permesso inserire dei probe nel sistema?
-- dove analizzo i dati? (*Es.* li analizzo direttamente su una delle macchine in esame? Ne uso una aggiuntiva apposta?)
-- Come faccio il mio decision making?
+1. È semplice monitorare i sistemi distribuiti?
+2. È sempre permesso inserire dei **probe** nel sistema?
+3. Dove analizzo i dati? (Es. li analizzo direttamente su una delle macchine in esame o uso una macchina aggiuntiva apposta?)
+4. Come prendo le decisioni basate sui dati raccolti?
 
-**Problematiche comuni:**
-- Ci sono eventi che non possono essere osservati direttamente, a volte servono dei dispositivi che analizzano in dettaglio i dati per trarne informazioni
-- Ci sono casi in cui si ottengono troppi pochi dati, e magari non se ne possono neanche ottenere di più. (*Es.* io uso Gmail nel mio sistema, ma essendo proprietario come software alcune parti rimangono una black box per me)
-- I problemi di intrusiveness si moltiplicano
-- I dati e le informazioni processate devono essere integrate fra sistemi molto diversi fra loro. I principali problemi generati da questo sono la necessità di sincronizzazione dei sistemi e la struttura dei dati che dovrebbe essere in comune o quantomeno interpretabile da tutti i dispositivi.
+ **Problematiche Comuni**
+- **Eventi non osservabili direttamente**: alcuni eventi possono non essere rilevabili direttamente e richiedono dispositivi che analizzano in dettaglio i dati.
+- **Dati insufficienti**: a volte si raccolgono pochi dati e, in alcuni casi, non è possibile ottenere informazioni più dettagliate (ad esempio, nell'uso di software proprietari come **Gmail**, alcune informazioni rimangono una **black box**).
+- **Problemi di intrusiveness**: l'intrusività dei sistemi di monitoraggio può aumentare.
+- **Integrazione dei dati**: i dati provenienti da sistemi molto diversi devono essere sincronizzati e strutturati in modo comprensibile per tutti i dispositivi.
 
-**Esempio ampio:**
-Consideriamo un caso di questo tipo:  
-google -|-> Unifi. Vediamo che c'è un muro fra google e Unifi, questo significa che in generale google fornisce delle API ma queste non permettono di accedere a tutti i dati. Solitamente le aziende forniscono dati sul normale utilizzo, non inviano informazioni sui failure all'interno del sistema. Inoltre, anche se Unifi riceve dei dati da google, e questi gli notificano un failure, come si comporta Unifi, come comunica a **tutti** gli utenti quello che sta accadendo? Se penso di usare un singolo dispositivo per analizzare i problemi, nel caso in cui questo abbia un failure, tutto il sistema potrebbe avere conseguenze catastrofiche.
+**Esempio**:
+Immagina un caso in cui **Google** e **Unifi** devono collaborare (Google -|-> Unifi). Google fornisce API, ma queste non permettono di accedere a tutte le informazioni, come i dati sui **failure** del sistema. Se Unifi riceve un avviso di failure da Google, come gestisce e comunica Unifi l'incidente agli utenti? Se si usa un singolo dispositivo per monitorare, il fallimento di quel dispositivo può causare problemi a tutto il sistema.
+#### Strategie di Monitoring
+Esistono principalmente due strategie di monitoring:
 
-## Strategie di Monitoring
+1. **Selezione di un Leader**: Si sceglie un computer come **leader**. Questo leader coordina gli altri dispositivi, gestendo i **probe** e analizzando i dati per prendere decisioni basate sulle informazioni raccolte.
 
-Ci sono principalmente due strategie di monitoring:
+2. **Distribuzione delle Responsabilità**: Tutti si accordano sulle minime informazioni di funzionamento che devono mettere a disposizione. Da qui per coordinarsi tutti i dispositivi devono anche trovare un modo per comunicare. Di solito alcuni sistemi si adeguano al modo usato da altri se questo risulta più comodo. *Es.* Unifi si adegua al modo che google ha di monitorare.
 
-**Selezione di un leader:**  
-In questa opzione si sceglie un computer come **leader**. Questo leader dice agli altri come devono sistemare il loro sistema con i probe e dopodichè lui è in grado di accedere ai probe, analizzare i dati e costruire delle scelte basate sulle informazioni che ne estrapola.
-
-**Distribuzione delle responsabilità:**  
-Non c'è alcun leader. Tutti si accordano sulle minime informazioni di funzionamento che devono mettere a disposizione. Da qui per coordinarsi tutti i dispositivi devono anche trovare un modo per comunicare. Di solito alcuni sistemi si adeguano al modo usato da altri se questo risulta più comodo. *Es.* Unifi si adegua al modo che google ha di monitorare.
-
-**Automatic failure reporting:**  
+#### Automatic Failure Reporting
 I primi esempi di report di failure automatici che ci vengono in mente sono i **blue screen of death** di Windows.
 
-**Telemetry:**  
-La Telemetry (**telemetria**) è una parte del sistema che sta diventando sempre più importante e inserita in modo ampio nei sistemi. Con telemetria intendiamo l'atto di monitorare i dati nel sistema. *Es.* nella formula-1 la macchina invia dati di telemetria al muretto, nel quale ci sono molti ingegneri che valutano se e quando fare un pit-stop (e anche se la macchina potrebbe esplodere)  
+#### Telemetria
+La Telemetry (**telemetria**) è una parte del sistema che sta diventando sempre più importante e inserita in modo ampio nei sistemi. Con telemetria intendiamo l'atto di monitorare i dati nel sistema. *Es.* nella formula-1 la macchina invia dati di telemetria al muretto, nel quale ci sono molti ingegneri che valutano se e quando fare un pit-stop (e anche se la macchina potrebbe esplodere).
+
 *Nota:* il tool che proveremo noi per questa parte è wire-shark, che si occupa delle interfacce di rete principalmente.
 
-## Wire-shark
+### Wire-shark
 
 Official site: https://www.wireshark.org/
 Vedere la documentazione per installazione e utilizzo.  
@@ -59,6 +55,7 @@ Un altro formato è il semplice .txt contenente tutto il testo. Quello notiamo c
 
 *Per spiegazione sulla GUI e funzionalità di wire-shark guardare anche le slide:* https://e-l.unifi.it/pluginfile.php/3265301/mod_resource/content/9/DCML-CPS_3_Monitoring_2.pdf
 
-## Top
+Su **Arch Linux**:
+```bash
+sudo pacman -S wireshark-qt
 
-top è il prob incluso nei sistemi Unix. È facile utilizzarlo tramite CLI per monitorare il sistema in tempo reale. Permette di specificare il monitoraggio solo di specifiche parti.
