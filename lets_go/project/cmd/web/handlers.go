@@ -83,3 +83,4 @@ func downloadHandler(w http.ResponseWriter, r *http.Request) {
 	// Note: this doesn't automatically sanitize the file name, so you should do that
 	http.ServeFile(w, r, "./ui/static/file.zip")
 }
+
