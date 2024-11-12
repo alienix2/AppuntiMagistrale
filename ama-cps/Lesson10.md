@@ -111,7 +111,7 @@ Concepts:
   - Each view has one primary replica (creates blocks, finalizes blocks) and backup replicas (finalize blocks)
   - The primary chooses the execution order from the client's requests
 
-**More in-depth in the slides**
+**Note: More in-depth in the slides**
 
 *Comparison of different algorithms:*  
 ![Comparison of different algorithms](../Screenshots/POX)

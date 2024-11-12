@@ -127,7 +127,7 @@ if __name__ == "__main__":
     """
     Entry point for the Injector
     """
-
+    print(os.getcwd())
     # General variables
     out_folder = "output_folder"
     inj_filename = "inj_info.csv"

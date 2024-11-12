@@ -1,10 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
+
+	"alienix2.letsgo/internal/models"
 )
 
 // home handler function writing bytes to a slice that already has a response body
@@ -16,32 +19,42 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Initialize a slice containing the paths to the two files. It's important
-	// to note that the file containing our base template must be the *first*
-	// file in the slice.
-	files := []string{
-		"./ui/html/base.tmpl.html",
-		"./ui/html/partials/nav.tmpl.html",
-		"./ui/html/pages/home.tmpl.html",
-	}
-
-	// We use the template.ParseFiles() function to read the template file into a new template set
-	// If there is an error we log the error and return a 500 internal server error response
-	// w.Write([]byte("Hello from home"))
-	ts, err := template.ParseFiles(files...)
+	snippets, err := app.snippets.Latest()
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	// We use the execute method on the template to write the template content as the response body.
-	// The last parameter to execute is nil, which means we are not passing any data to the template for now
-	// err = ts.Execute(w, nil)
-	err = ts.ExecuteTemplate(w, "base", nil)
-	if err != nil {
-		app.serverError(w, err)
-		http.Error(w, "Internal Server Error", 500)
+	for _, snippet := range snippets {
+		fmt.Fprintf(w, "%+v\n", snippet)
 	}
+
+	// Initialize a slice containing the paths to the two files. It's important
+	// to note that the file containing our base template must be the *first*
+	// file in the slice.
+	// files := []string{
+	// 	"./ui/html/base.tmpl.html",
+	// 	"./ui/html/partials/nav.tmpl.html",
+	// 	"./ui/html/pages/home.tmpl.html",
+	// }
+	//
+	// // We use the template.ParseFiles() function to read the template file into a new template set
+	// // If there is an error we log the error and return a 500 internal server error response
+	// // w.Write([]byte("Hello from home"))
+	// ts, err := template.ParseFiles(files...)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// 	return
+	// }
+	//
+	// // We use the execute method on the template to write the template content as the response body.
+	// // The last parameter to execute is nil, which means we are not passing any data to the template for now
+	// // err = ts.Execute(w, nil)
+	// err = ts.ExecuteTemplate(w, "base", nil)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// 	http.Error(w, "Internal Server Error", 500)
+	// }
 }
 
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
@@ -53,8 +66,45 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		app.notFound(w)
 		return
 	}
-	// w.Write([]byte("Display the snippet"))
-	fmt.Fprintf(w, "Display a specific snipper with ID %d", id)
+
+	// We use te SnippetModel.Get() method to retrieve the data for a specific record based on its ID
+	// If no matching record is found, we return a 404 not found response
+	snippet, err := app.snippets.Get(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+		return
+	}
+
+	// I inizialize a slice using the path to view.tpml.html file
+	// plus the path to the base and navigation
+	files := []string{
+		"./ui/html/base.tmpl.html",
+		"./ui/html/partials/nav.tmpl.html",
+		"./ui/html/pages/view.tmpl.html",
+	}
+
+	// I parse the files and check for errors
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	// Create an instance of a templateData struct holding the snippet data
+	data := &templateData{Snippet: snippet}
+
+	// In the end I execute the template
+	err = ts.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		app.serverError(w, err)
+	}
+	// // w.Write([]byte("Display the snippet"))
+	// // We write the snippet as plain text to the http.ResponseWriter
+	// fmt.Fprintf(w, "%+v", snippet)
 }
 
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
@@ -69,7 +119,19 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Create the snippet"))
+	title := "O snail"
+	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n- Kobayashi Issa"
+	expires := 7
+
+	// We pass the data to the SnippetModel.Insert() method, which returns the ID of the new record
+	id, err := app.snippets.Insert(title, content, expires)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	// Redirect the user to the relevant page for the snippet
+	http.Redirect(w, r, fmt.Sprintf("/snippet/view?id=%d", id), http.StatusSeeOther)
 }
 
 func headerMap(w http.ResponseWriter) {
@@ -83,4 +145,3 @@ func downloadHandler(w http.ResponseWriter, r *http.Request) {
 	// Note: this doesn't automatically sanitize the file name, so you should do that
 	http.ServeFile(w, r, "./ui/static/file.zip")
 }
-

@@ -1,4 +1,4 @@
-# System architectures
+#System architectures
 
 There are two main strategies to deploy components on node **Vertical** and **Horizontal** distribution.
 
@@ -168,56 +168,3 @@ The deployment of the edge computing is usually more complex than the cloud comp
 *Note:* Prof. Thinks that there is no actual different between fog and edge computing. It's just two names for the same thing for marketing purposes.
 
 The **fog** nodes are the nodes that are in the middle between the edge and the cloud. The **fog** nodes are usually used to preprocess the data before sending it to the cloud, but this can also be achieved using the edge nodes.
-
-## Block-chain architecture
-
-In this case we are talking about a system that allows the registration of transactions into distributed ledgers.
-
-In this case we are thinking of a P2P network in which the nodes doesn't trust each-other. The system is usually organized into three layers:
-
-- **Network layer:** the layer that represents the p2p network representing the participants
-- **Consensus layer:** the layer that represents the rules that are used to validate the transactions
-- **Application layer:** the layer that represents the application that is built on top of the blockchain (*I.e:* a smart-contract)
-
-When a transaction is ready a node must decide to communicate it to the other ledgers. The **validators** (sometimes referred as **miners**) validate them, group them in a block that is appended to the ledger and then propagate the blocks to the others in the network.
-
-There must be a way to understand who is allowed to add blocks to the network. This means that the peers must all achieve consensus using an alone algorithm. The most famous algorithm is the **Proof of Work** algorithm.
-
-The two options are:
-
-- a small selected group is identified as a trust-third party
-- the consensus is achieved through the use of a distributed algorithm that is based on the idea that the majority of the nodes are honest.
-
-### Kinds of block-chain
-
-- **Permissionless:** the blockchain is open to everyone. *I.e:* Bitcoin
-- **Permissioned:** the blockchain is open only to a specific group of people. *I.e:* Hyperledger
-
-## A case study of a P2P system: Bitcoin
-
-The idea of analyzing this case study is to understand how all the theory we discussed can be implemented in real life.
-
-*Note:* this is also discussed in [Lesson_10 of the AMA-CPS course](../ama-cps/Lesson10.md)
-
-The basic Satoshi Nakamoto's idea was to create a system that allows the exchange of money without the need of a central authority. The system is based on the idea of a **blockchain**.
-
-### Cryptographic Ingredients
-
-**Hash function:** an has function is a mathematical function that takes an input and returns a fixed-size string of bytes. The hash function must have the following basic properties:
-
-- **Efficient**
-- **Probability** of generating a hash value should be around the same for all the possible values
-
-**Other properties:**
-
-- **Collision free:** *Note:* in general the hash function is not injective, so there can be multiple inputs that generate the same output. This is called a **collision**. A function that is completely collision free doesn't exist, but we can think of functions that make it so it's not feasible to find those collisions. This means that the hash of a specific data can be used to identify that piece of data. *Note:* again, that's not a mathematical property, is just that we assume that it's impossible to have a collision in real life.
-
-- **Hiding:** the hash function should be hiding. This means that if we have a hash value we cannot understand what the input was. This is usually achieved by using a **salt**. The salt is a random value that is added to the input before hashing it. This means that if we have the hash value we cannot understand what the input was unless we know the salt. This is also a must of the starting set is made out of a low number of elements.
-
-- **Game friendly:** the hash function should be game friendly.
-
-#### Proof of work
-
-The idea of the proof of work is to find a value that when hashed the hash begins with a number of zero bits. This means that once you are able to find that value you get the transaction itself in reward, and the coins becomes yours.
-
-The idea came from solving a problem about spam emails. The idea was to make the sender of the email do some work before sending the email (solve a **challenge**). This way the spammer would have to do a lot of work to send a lot of emails.
