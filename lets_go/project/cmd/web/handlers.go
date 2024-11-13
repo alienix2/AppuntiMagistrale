@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -14,7 +13,7 @@ import (
 // it's a method defined against the application struct
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// If the request URL path is not "/" then return a 404 not found response
-	if r.URL.Path != "/" {
+	if r.URL.Path != "/" && r.URL.Path != "/home" {
 		app.notFound(w)
 		return
 	}
@@ -25,9 +24,12 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, snippet := range snippets {
-		fmt.Fprintf(w, "%+v\n", snippet)
-	}
+	// I use the renderer
+	app.render(w, http.StatusOK, "home.tmpl.html", &templateData{Snippets: snippets})
+
+	// for _, snippet := range snippets {
+	// 	fmt.Fprintf(w, "%+v\n", snippet)
+	// }
 
 	// Initialize a slice containing the paths to the two files. It's important
 	// to note that the file containing our base template must be the *first*
@@ -47,13 +49,15 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 	//
+	// // Create an instance of a templateData struct holding the snippets data
+	// data := &templateData{Snippets: snippets}
+	//
 	// // We use the execute method on the template to write the template content as the response body.
 	// // The last parameter to execute is nil, which means we are not passing any data to the template for now
 	// // err = ts.Execute(w, nil)
-	// err = ts.ExecuteTemplate(w, "base", nil)
+	// err = ts.ExecuteTemplate(w, "base", data)
 	// if err != nil {
 	// 	app.serverError(w, err)
-	// 	http.Error(w, "Internal Server Error", 500)
 	// }
 }
 
@@ -79,29 +83,32 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// I inizialize a slice using the path to view.tpml.html file
-	// plus the path to the base and navigation
-	files := []string{
-		"./ui/html/base.tmpl.html",
-		"./ui/html/partials/nav.tmpl.html",
-		"./ui/html/pages/view.tmpl.html",
-	}
-
-	// I parse the files and check for errors
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
-	// Create an instance of a templateData struct holding the snippet data
-	data := &templateData{Snippet: snippet}
-
-	// In the end I execute the template
-	err = ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, err)
-	}
+	// I use the renderer
+	app.render(w, http.StatusOK, "view.tmpl.html", &templateData{Snippet: snippet})
+	//
+	// // I inizialize a slice using the path to view.tpml.html file
+	// // plus the path to the base and navigation
+	// files := []string{
+	// 	"./ui/html/base.tmpl.html",
+	// 	"./ui/html/partials/nav.tmpl.html",
+	// 	"./ui/html/pages/view.tmpl.html",
+	// }
+	//
+	// // I parse the files and check for errors
+	// ts, err := template.ParseFiles(files...)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// 	return
+	// }
+	//
+	// // Create an instance of a templateData struct holding the snippet data
+	// data := &templateData{Snippet: snippet}
+	//
+	// // In the end I execute the template
+	// err = ts.ExecuteTemplate(w, "base", data)
+	// if err != nil {
+	// 	app.serverError(w, err)
+	// }
 	// // w.Write([]byte("Display the snippet"))
 	// // We write the snippet as plain text to the http.ResponseWriter
 	// fmt.Fprintf(w, "%+v", snippet)
