@@ -1,4 +1,4 @@
-#System architectures
+# System architectures
 
 There are two main strategies to deploy components on node **Vertical** and **Horizontal** distribution.
 
