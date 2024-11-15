@@ -1,5 +1,7 @@
 # Lezione 4 - Perché fare Monitoring
+
 ## Perché fare monitoring
+
 Nella lezione precedente abbiamo visto come funziona il monitoring. Tuttavia, occorre notare che nessuno ci paga per fare la parte di monitoring, questo significa che dobbiamo farla soprattutto per noi stessi.  
 Nella pratica si esegue il monitoring per capire se c'è qualcosa di pericoloso che potrebbe succedere (o sta già succedendo) nel nostro sistema.  
 
