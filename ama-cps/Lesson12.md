@@ -118,3 +118,27 @@ We consider the **degree of a cut** as the number of basic events in the cut set
   - AND Gate: it is removed from the cut-set, while all the children are added
   - OR Gate: it is removed from the cut-set, creating multiple identical
 cut-sets and adding to each of them one of the different children
+
+## Case study: brake system of a car
+
+We consider a simplified version of a braking system without considering the ABS system. The system is composed of a brake pedal, a brake pedal and two pairs of valvola, tubazione and cilindro (front and rear).
+
+The **target** is to assess the likelihood of a dangerous event for the safety of passengers (**hazard**) due to a malfunction in the braking system.
+
+We consider the following **hazard**:
+
+- Loss of both the brakes
+
+And we note that if one of the component in the front, the back breaks still work and viceversa, whereas if the brake pedal fails, the whole system fails.
+All the failures are considered exponentially distributed.
+
+### Modeling the system using a fault tree
+
+![break_system_example](../Screenshots/break_system_exmple.png)
+
+$\phi = ((C1 \vee C2 \vee C3) \wedge (C4 \vee C5 \vee C6)) \vee C7$
+
+*Note:* from here we can derive the minimal cut set using the algorithm seen in the previous lecture. Analyzing the minimal cut set is easy to identify the **single point of failure** by looking at sets that are made out of only one variable. Also we can identify that having one of the front component makes it so any of the rear component is also a single point of failure and viceversa.
+
+*Note:* it's easy to define a RBD and a RG from here and it's also possible to apply the Shannon expansion theorem to find the probability of the hazard.
+
