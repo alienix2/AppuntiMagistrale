@@ -7,16 +7,17 @@ import (
 	"strconv"
 
 	"alienix2.letsgo/internal/models"
+	"github.com/julienschmidt/httprouter"
 )
 
 // home handler function writing bytes to a slice that already has a response body
 // it's a method defined against the application struct
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// If the request URL path is not "/" then return a 404 not found response
-	if r.URL.Path != "/" && r.URL.Path != "/home" {
-		app.notFound(w)
-		return
-	}
+	// if r.URL.Path != "/" && r.URL.Path != "/home" {
+	// 	app.notFound(w)
+	// 	return
+	// }
 
 	snippets, err := app.snippets.Latest()
 	if err != nil {
@@ -24,8 +25,13 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// I call the newTemplateData helper to get a template containing the default data
+	// and add the Snippets data to it
+	data := &templateData{Snippets: snippets}
+	data.Snippets = snippets
+
 	// I use the renderer
-	app.render(w, http.StatusOK, "home.tmpl.html", &templateData{Snippets: snippets})
+	app.render(w, http.StatusOK, "home.tmpl.html", data)
 
 	// for _, snippet := range snippets {
 	// 	fmt.Fprintf(w, "%+v\n", snippet)
@@ -61,18 +67,75 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// }
 }
 
-func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
-	// I extract the value of the ID from the query and try to convert it to integer
-	// If it cannot be converted or is less than 1, I return a 404 not found response
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+// func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+// 	// I extract the value of the ID from the query and try to convert it to integer
+// 	// If it cannot be converted or is less than 1, I return a 404 not found response
+// 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+//
+// 	if err != nil || id < 1 {
+// 		app.notFound(w)
+// 		return
+// 	}
+//
+// 	// We use te SnippetModel.Get() method to retrieve the data for a specific record based on its ID
+// 	// If no matching record is found, we return a 404 not found response
+// 	snippet, err := app.snippets.Get(id)
+// 	if err != nil {
+// 		if errors.Is(err, models.ErrNoRecord) {
+// 			app.notFound(w)
+// 		} else {
+// 			app.serverError(w, err)
+// 		}
+// 		return
+// 	}
+//
+// 	// I create an instance of a templateData struct containing the snippet data
+// 	// and pass it to the render method
+// 	data := app.newTemplateData(r)
+// 	data.Snippet = snippet
+//
+// 	// I use the renderer
+// 	app.render(w, http.StatusOK, "view.tmpl.html", data)
+// 	//
+// 	// // I inizialize a slice using the path to view.tpml.html file
+// 	// // plus the path to the base and navigation
+// 	// files := []string{
+// 	// 	"./ui/html/base.tmpl.html",
+// 	// 	"./ui/html/partials/nav.tmpl.html",
+// 	// 	"./ui/html/pages/view.tmpl.html",
+// 	// }
+// 	//
+// 	// // I parse the files and check for errors
+// 	// ts, err := template.ParseFiles(files...)
+// 	// if err != nil {
+// 	// 	app.serverError(w, err)
+// 	// 	return
+// 	// }
+// 	//
+// 	// // Create an instance of a templateData struct holding the snippet data
+// 	// data := &templateData{Snippet: snippet}
+// 	//
+// 	// // In the end I execute the template
+// 	// err = ts.ExecuteTemplate(w, "base", data)
+// 	// if err != nil {
+// 	// 	app.serverError(w, err)
+// 	// }
+// 	// // w.Write([]byte("Display the snippet"))
+// 	// // We write the snippet as plain text to the http.ResponseWriter
+// 	// fmt.Fprintf(w, "%+v", snippet)
+// }
 
+func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+	// We use the ParamsFromContext() method to get a slice of route parameters from the request context
+	params := httprouter.ParamsFromContext(r.Context())
+
+	// We extract the value of the id parameter from the slice, and try to convert it to an integer
+	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
 	}
 
-	// We use te SnippetModel.Get() method to retrieve the data for a specific record based on its ID
-	// If no matching record is found, we return a 404 not found response
 	snippet, err := app.snippets.Get(id)
 	if err != nil {
 		if errors.Is(err, models.ErrNoRecord) {
@@ -83,49 +146,44 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// I use the renderer
-	app.render(w, http.StatusOK, "view.tmpl.html", &templateData{Snippet: snippet})
-	//
-	// // I inizialize a slice using the path to view.tpml.html file
-	// // plus the path to the base and navigation
-	// files := []string{
-	// 	"./ui/html/base.tmpl.html",
-	// 	"./ui/html/partials/nav.tmpl.html",
-	// 	"./ui/html/pages/view.tmpl.html",
-	// }
-	//
-	// // I parse the files and check for errors
-	// ts, err := template.ParseFiles(files...)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// 	return
-	// }
-	//
-	// // Create an instance of a templateData struct holding the snippet data
-	// data := &templateData{Snippet: snippet}
-	//
-	// // In the end I execute the template
-	// err = ts.ExecuteTemplate(w, "base", data)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// }
-	// // w.Write([]byte("Display the snippet"))
-	// // We write the snippet as plain text to the http.ResponseWriter
-	// fmt.Fprintf(w, "%+v", snippet)
+	data := app.newTemplateData(r)
+	data.Snippet = snippet
+
+	app.render(w, http.StatusOK, "view.tmpl.html", data)
 }
 
-func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
-	// r.Method is an HTTP method, if it's not POST then return a 405 method not allowed response
-	// if r.Method != "POST" {
-	if r.Method != http.MethodPost {
-		w.Header().Set("Allow", http.MethodPost)
-		// w.WriteHeader(405)
-		// w.Write([]byte("Method not allowed"))
-		// Same as above (http.StatusMethodNotAllowed = 405)
-		app.clientError(w, http.StatusMethodNotAllowed)
-		return
-	}
+// func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
+// 	// r.Method is an HTTP method, if it's not POST then return a 405 method not allowed response
+// 	// if r.Method != "POST" {
+// 	if r.Method != http.MethodPost {
+// 		w.Header().Set("Allow", http.MethodPost)
+// 		// w.WriteHeader(405)
+// 		// w.Write([]byte("Method not allowed"))
+// 		// Same as above (http.StatusMethodNotAllowed = 405)
+// 		app.clientError(w, http.StatusMethodNotAllowed)
+// 		return
+// 	}
+//
+// 	title := "O snail"
+// 	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n- Kobayashi Issa"
+// 	expires := 7
+//
+// 	// We pass the data to the SnippetModel.Insert() method, which returns the ID of the new record
+// 	id, err := app.snippets.Insert(title, content, expires)
+// 	if err != nil {
+// 		app.serverError(w, err)
+// 		return
+// 	}
+//
+// 	// Redirect the user to the relevant page for the snippet
+// 	http.Redirect(w, r, fmt.Sprintf("/snippet/view?id=%d", id), http.StatusSeeOther)
+// }
 
+func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Create a new snippet..."))
+}
+
+func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
 	title := "O snail"
 	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n- Kobayashi Issa"
 	expires := 7
@@ -138,7 +196,7 @@ func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Redirect the user to the relevant page for the snippet
-	http.Redirect(w, r, fmt.Sprintf("/snippet/view?id=%d", id), http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
 }
 
 func headerMap(w http.ResponseWriter) {

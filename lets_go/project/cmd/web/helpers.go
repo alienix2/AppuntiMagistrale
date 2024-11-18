@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 	"runtime/debug"
+	"time"
 )
 
 // serverError helper writes an error message and stack trace to the errorLog
@@ -36,13 +38,27 @@ func (app *application) render(w http.ResponseWriter, status int, page string, d
 		return
 	}
 
+	// Inizialize a new buffer
+	buf := new(bytes.Buffer)
+
+	// I write the template to the buffer and then write the buffer to the response writer
+	// If there is an error, I call the serverError helper method to log the error instead
+	err := ts.ExecuteTemplate(buf, "base", data)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	// Write the status code
 	w.WriteHeader(status)
 
-	// Execute the template set, passing in any dynamic data.
-	// If there is an error, call the serverError helper method to log the error
-	err := ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, err)
+	// I write the contents of the buffer to the http.ResponseWriter
+	buf.WriteTo(w)
+}
+
+// I create a helper for the templateData that allows to add the current year
+func (app *application) newTemplateData(r *http.Request) *templateData {
+	return &templateData{
+		CurrentYear: time.Now().Year(),
 	}
 }
