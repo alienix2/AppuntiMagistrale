@@ -5,18 +5,28 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
+	"unicode/utf8"
 
 	"alienix2.letsgo/internal/models"
+	"github.com/julienschmidt/httprouter"
 )
+
+type snippetCreateForm struct {
+	FieldErrors map[string]string
+	Title       string
+	Content     string
+	Expires     int
+}
 
 // home handler function writing bytes to a slice that already has a response body
 // it's a method defined against the application struct
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// If the request URL path is not "/" then return a 404 not found response
-	if r.URL.Path != "/" && r.URL.Path != "/home" {
-		app.notFound(w)
-		return
-	}
+	// if r.URL.Path != "/" && r.URL.Path != "/home" {
+	// 	app.notFound(w)
+	// 	return
+	// }
 
 	snippets, err := app.snippets.Latest()
 	if err != nil {
@@ -24,8 +34,14 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// I call the newTemplateData helper to get a template containing the default data
+	// and add the Snippets data to it
+	// data := &templateData{Snippets: snippets}
+	data := app.newTemplateData(r)
+	data.Snippets = snippets
+
 	// I use the renderer
-	app.render(w, http.StatusOK, "home.tmpl.html", &templateData{Snippets: snippets})
+	app.render(w, http.StatusOK, "home.tmpl.html", data)
 
 	// for _, snippet := range snippets {
 	// 	fmt.Fprintf(w, "%+v\n", snippet)
@@ -61,18 +77,75 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// }
 }
 
-func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
-	// I extract the value of the ID from the query and try to convert it to integer
-	// If it cannot be converted or is less than 1, I return a 404 not found response
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+// func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+// 	// I extract the value of the ID from the query and try to convert it to integer
+// 	// If it cannot be converted or is less than 1, I return a 404 not found response
+// 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+//
+// 	if err != nil || id < 1 {
+// 		app.notFound(w)
+// 		return
+// 	}
+//
+// 	// We use te SnippetModel.Get() method to retrieve the data for a specific record based on its ID
+// 	// If no matching record is found, we return a 404 not found response
+// 	snippet, err := app.snippets.Get(id)
+// 	if err != nil {
+// 		if errors.Is(err, models.ErrNoRecord) {
+// 			app.notFound(w)
+// 		} else {
+// 			app.serverError(w, err)
+// 		}
+// 		return
+// 	}
+//
+// 	// I create an instance of a templateData struct containing the snippet data
+// 	// and pass it to the render method
+// 	data := app.newTemplateData(r)
+// 	data.Snippet = snippet
+//
+// 	// I use the renderer
+// 	app.render(w, http.StatusOK, "view.tmpl.html", data)
+// 	//
+// 	// // I inizialize a slice using the path to view.tpml.html file
+// 	// // plus the path to the base and navigation
+// 	// files := []string{
+// 	// 	"./ui/html/base.tmpl.html",
+// 	// 	"./ui/html/partials/nav.tmpl.html",
+// 	// 	"./ui/html/pages/view.tmpl.html",
+// 	// }
+// 	//
+// 	// // I parse the files and check for errors
+// 	// ts, err := template.ParseFiles(files...)
+// 	// if err != nil {
+// 	// 	app.serverError(w, err)
+// 	// 	return
+// 	// }
+// 	//
+// 	// // Create an instance of a templateData struct holding the snippet data
+// 	// data := &templateData{Snippet: snippet}
+// 	//
+// 	// // In the end I execute the template
+// 	// err = ts.ExecuteTemplate(w, "base", data)
+// 	// if err != nil {
+// 	// 	app.serverError(w, err)
+// 	// }
+// 	// // w.Write([]byte("Display the snippet"))
+// 	// // We write the snippet as plain text to the http.ResponseWriter
+// 	// fmt.Fprintf(w, "%+v", snippet)
+// }
 
+func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+	// We use the ParamsFromContext() method to get a slice of route parameters from the request context
+	params := httprouter.ParamsFromContext(r.Context())
+
+	// We extract the value of the id parameter from the slice, and try to convert it to an integer
+	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
 	}
 
-	// We use te SnippetModel.Get() method to retrieve the data for a specific record based on its ID
-	// If no matching record is found, we return a 404 not found response
 	snippet, err := app.snippets.Get(id)
 	if err != nil {
 		if errors.Is(err, models.ErrNoRecord) {
@@ -83,62 +156,112 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// I use the renderer
-	app.render(w, http.StatusOK, "view.tmpl.html", &templateData{Snippet: snippet})
-	//
-	// // I inizialize a slice using the path to view.tpml.html file
-	// // plus the path to the base and navigation
-	// files := []string{
-	// 	"./ui/html/base.tmpl.html",
-	// 	"./ui/html/partials/nav.tmpl.html",
-	// 	"./ui/html/pages/view.tmpl.html",
-	// }
-	//
-	// // I parse the files and check for errors
-	// ts, err := template.ParseFiles(files...)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// 	return
-	// }
-	//
-	// // Create an instance of a templateData struct holding the snippet data
-	// data := &templateData{Snippet: snippet}
-	//
-	// // In the end I execute the template
-	// err = ts.ExecuteTemplate(w, "base", data)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// }
-	// // w.Write([]byte("Display the snippet"))
-	// // We write the snippet as plain text to the http.ResponseWriter
-	// fmt.Fprintf(w, "%+v", snippet)
+	data := app.newTemplateData(r)
+	data.Snippet = snippet
+
+	app.render(w, http.StatusOK, "view.tmpl.html", data)
 }
 
+// func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
+// 	// r.Method is an HTTP method, if it's not POST then return a 405 method not allowed response
+// 	// if r.Method != "POST" {
+// 	if r.Method != http.MethodPost {
+// 		w.Header().Set("Allow", http.MethodPost)
+// 		// w.WriteHeader(405)
+// 		// w.Write([]byte("Method not allowed"))
+// 		// Same as above (http.StatusMethodNotAllowed = 405)
+// 		app.clientError(w, http.StatusMethodNotAllowed)
+// 		return
+// 	}
+//
+// 	title := "O snail"
+// 	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n- Kobayashi Issa"
+// 	expires := 7
+//
+// 	// We pass the data to the SnippetModel.Insert() method, which returns the ID of the new record
+// 	id, err := app.snippets.Insert(title, content, expires)
+// 	if err != nil {
+// 		app.serverError(w, err)
+// 		return
+// 	}
+//
+// 	// Redirect the user to the relevant page for the snippet
+// 	http.Redirect(w, r, fmt.Sprintf("/snippet/view?id=%d", id), http.StatusSeeOther)
+// }
+
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
-	// r.Method is an HTTP method, if it's not POST then return a 405 method not allowed response
-	// if r.Method != "POST" {
-	if r.Method != http.MethodPost {
-		w.Header().Set("Allow", http.MethodPost)
-		// w.WriteHeader(405)
-		// w.Write([]byte("Method not allowed"))
-		// Same as above (http.StatusMethodNotAllowed = 405)
-		app.clientError(w, http.StatusMethodNotAllowed)
+	data := app.newTemplateData(r)
+
+	// We inizialize the form so that it's not uninitialized when the template
+	// is first called
+	data.Form = snippetCreateForm{Expires: 365}
+	app.render(w, http.StatusOK, "create.tmpl.html", data)
+}
+
+func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+	// we call the r.ParseForm() which adds any data in POST request bodies
+	// to the r.PostForm map. If there is an error we will call app.ClientError()
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
 		return
 	}
 
-	title := "O snail"
-	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n- Kobayashi Issa"
-	expires := 7
+	// We use the r.PostForm.Get() method to retrieve the value of the title and content fields
+	// from the form. We also get the expires, and we want the expires field to be an int
+	// title := r.PostForm.Get("title")
+	// content := r.PostForm.Get("content")
+	expires, err := strconv.Atoi(r.PostForm.Get("expires"))
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	// Create an instance of the snippetCreateForm struct containing the form data
+	form := snippetCreateForm{
+		Title:       r.PostForm.Get("title"),
+		Content:     r.PostForm.Get("content"),
+		Expires:     expires,
+		FieldErrors: map[string]string{},
+	}
+
+	// I check for any validation error
+	fieldErrors := make(map[string]string)
+
+	// Title should not be blank and should be less than 100 characters
+	if strings.TrimSpace(form.Title) == "" {
+		fieldErrors["title"] = "Title cannot be blank"
+	} else if utf8.RuneCountInString(form.Title) > 100 {
+		fieldErrors["title"] = "Title cannot be longer than 100 characters"
+	}
+
+	// content should not be blank
+	if strings.TrimSpace(form.Content) == "" {
+		fieldErrors["content"] = "Content cannot be blank"
+	}
+
+	// expires should match one of our patterns (1, 7 or 365 days)
+	if expires != 1 && expires != 7 && expires != 365 {
+		fieldErrors["expires"] = "Expiry must be 1, 7 or 365 days"
+	}
+
+	// If there is any error, return it in a HTTP reponse
+	if len(fieldErrors) > 0 {
+		// fmt.Fprintf(w, "%v", fieldErrors)
+		data := app.newTemplateData(r)
+		data.Form = form
+		app.render(w, http.StatusUnprocessableEntity, "create.tmpl.html", data)
+		return
+	}
 
 	// We pass the data to the SnippetModel.Insert() method, which returns the ID of the new record
-	id, err := app.snippets.Insert(title, content, expires)
+	id, err := app.snippets.Insert(form.Title, form.Content, expires)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
-
 	// Redirect the user to the relevant page for the snippet
-	http.Redirect(w, r, fmt.Sprintf("/snippet/view?id=%d", id), http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
 }
 
 func headerMap(w http.ResponseWriter) {
