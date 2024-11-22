@@ -31,3 +31,10 @@ I start with the graph:
 From this I can calculate the probability of the weather in 3 days and also I can estimate which condition is most likely than the other in each day.
 
 *Note:* I always need the initial state to calculate the probabilities in the future.
+
+## Holding time in a state
+
+The **holding time** in a state is the number of steps that the DTMC stays in a state before moving to another state.
+The statistical properties still hold:
+
+$$P(X_{t+k} = j | X_t = i) = P(X_{k} = j | X_0 = i)$$
