@@ -1,0 +1,37 @@
+{{define "title"}}Create a New Snippet{{end}}
+
+{{define "main"}}
+<form action='/snippet/create' method='POST'>
+  <div>
+    <label>Title:</label>
+    <!-- I render the .Form.FieldErrors.title if that is not empty -->
+    {{with .Form.FieldErrors.title}}
+      <label class = 'error'>{{.}}</label>
+    {{end}}
+    <!-- I use the value to repopulate the title, if the form is redisplayed -->
+    <input type='text' name='title' value='{{.Form.Title}}'>
+  </div>
+  <div>
+    <label>Content:</label>
+    <!-- Same as the above -->
+    {{with .Form.FieldErrors.content}}
+      <label class = 'error'>{{.}}</label>
+    {{end}}
+    <textarea name='content'>{{.Form.Content}}</textarea>
+  </div>
+  <div>
+    <label>Delete in:</label>
+    <!-- same as the above -->
+    {{with .Form.FieldErrors.expires}}
+      <label class = 'error'>{{.}}</label>
+    {{end}}
+    <!-- We use the if actions to check only one of the radio buttons -->
+    <input type='radio' name='expires' value='365' {{if (eq .Form.Expires 365)}}checked{{end}}> One Year
+    <input type='radio' name='expires' value='7' {{if (eq .Form.Expires 7)}}checked{{end}}> One Week
+    <input type='radio' name='expires' value='1' {{if (eq .Form.Expires 1)}}checked{{end}}> One Day    
+  </div>
+  <div>
+    <input type='submit' value='Publish snippet'>
+  </div>
+</form>
+{{end}}

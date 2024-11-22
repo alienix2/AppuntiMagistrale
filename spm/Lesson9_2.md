@@ -49,3 +49,5 @@ Three practices that are usually followed in planning are:
 - **React and replan:** you don't put any padding but you are ready to change the plan if it's needed. *Note:* usually this strategy is only used as a last resort if the above weren't implemented well or weren't enough.
 
 *Note:* replanning could be very costly, so you should first evaluate how much you can afford to change the plan. Also another important thing is to be clear with yourself and with the stakeholder on how you are dealing with contingency
+
+*Note:* early delivery might also be an issue in some cases, that's because most of the time you still need to pay for the people that you hired for a longer time, which means that you will have to reallocate them somehow if you don't want to pay them for doing nothing.

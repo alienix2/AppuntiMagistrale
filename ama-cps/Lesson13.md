@@ -83,3 +83,23 @@ In the MOF specification this is the last level of meta-models. This is because 
 We can see that the properties are some kind of classes so it's not needed to add another layer upper.
 
 When we will have to transform a model into another model we will need to have the models A and B conforming to two meta-models which themselves conform to the **same** meta-model, otherwise the transformation is not possible usually.
+
+## Interoperability
+
+The term **interoperability** can have many definitions, IEEE defines it as:
+
+> The ability of two or more systems or components to exchange information and to use the information that has been exchanged.
+
+In **Model-driven engineering** interoperability is a key issue, as it is necessary to integrate models and tools from different sources. This is particularly important in the context of **multi-modelling** and **multi-paradigm** approaches, where different models and tools are used to describe different aspects of a system.
+
+## Verification and validation
+
+**Verification** and **validation** are two key activities in the development of software systems. **Verification** is the process of checking that a system meets its specification, while **validation** is the process of checking that the system meets the needs of its users.
+
+One of the harder things to do in model-driven engineering is to assess **non-functional** requirements. There are various techniques that can be used to solve the issue, the most common one is to use proper testing techniques.
+
+*Note:* this is also useful for performance and reliability analysis.
+
+## MBSE purpose
+
+**Model-based systems engineering** (MBSE) is a methodology that uses models to describe and analyze complex systems. The purpose of MBSE is to improve the quality of systems engineering by providing a common language and framework for describing and analyzing systems.

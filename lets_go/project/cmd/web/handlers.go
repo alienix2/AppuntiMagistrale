@@ -5,10 +5,19 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
+	"unicode/utf8"
 
 	"alienix2.letsgo/internal/models"
 	"github.com/julienschmidt/httprouter"
 )
+
+type snippetCreateForm struct {
+	FieldErrors map[string]string
+	Title       string
+	Content     string
+	Expires     int
+}
 
 // home handler function writing bytes to a slice that already has a response body
 // it's a method defined against the application struct
@@ -27,7 +36,8 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	// I call the newTemplateData helper to get a template containing the default data
 	// and add the Snippets data to it
-	data := &templateData{Snippets: snippets}
+	// data := &templateData{Snippets: snippets}
+	data := app.newTemplateData(r)
 	data.Snippets = snippets
 
 	// I use the renderer
@@ -180,21 +190,76 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 // }
 
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Create a new snippet..."))
+	data := app.newTemplateData(r)
+
+	// We inizialize the form so that it's not uninitialized when the template
+	// is first called
+	data.Form = snippetCreateForm{Expires: 365}
+	app.render(w, http.StatusOK, "create.tmpl.html", data)
 }
 
 func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
-	title := "O snail"
-	content := "O snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\n- Kobayashi Issa"
-	expires := 7
+	// we call the r.ParseForm() which adds any data in POST request bodies
+	// to the r.PostForm map. If there is an error we will call app.ClientError()
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	// We use the r.PostForm.Get() method to retrieve the value of the title and content fields
+	// from the form. We also get the expires, and we want the expires field to be an int
+	// title := r.PostForm.Get("title")
+	// content := r.PostForm.Get("content")
+	expires, err := strconv.Atoi(r.PostForm.Get("expires"))
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	// Create an instance of the snippetCreateForm struct containing the form data
+	form := snippetCreateForm{
+		Title:       r.PostForm.Get("title"),
+		Content:     r.PostForm.Get("content"),
+		Expires:     expires,
+		FieldErrors: map[string]string{},
+	}
+
+	// I check for any validation error
+	fieldErrors := make(map[string]string)
+
+	// Title should not be blank and should be less than 100 characters
+	if strings.TrimSpace(form.Title) == "" {
+		fieldErrors["title"] = "Title cannot be blank"
+	} else if utf8.RuneCountInString(form.Title) > 100 {
+		fieldErrors["title"] = "Title cannot be longer than 100 characters"
+	}
+
+	// content should not be blank
+	if strings.TrimSpace(form.Content) == "" {
+		fieldErrors["content"] = "Content cannot be blank"
+	}
+
+	// expires should match one of our patterns (1, 7 or 365 days)
+	if expires != 1 && expires != 7 && expires != 365 {
+		fieldErrors["expires"] = "Expiry must be 1, 7 or 365 days"
+	}
+
+	// If there is any error, return it in a HTTP reponse
+	if len(fieldErrors) > 0 {
+		// fmt.Fprintf(w, "%v", fieldErrors)
+		data := app.newTemplateData(r)
+		data.Form = form
+		app.render(w, http.StatusUnprocessableEntity, "create.tmpl.html", data)
+		return
+	}
 
 	// We pass the data to the SnippetModel.Insert() method, which returns the ID of the new record
-	id, err := app.snippets.Insert(title, content, expires)
+	id, err := app.snippets.Insert(form.Title, form.Content, expires)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
-
 	// Redirect the user to the relevant page for the snippet
 	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
 }
