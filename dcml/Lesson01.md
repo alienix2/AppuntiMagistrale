@@ -1,6 +1,6 @@
 # Lezione 1 - Concetti di Base
 
-### Sistema
+## Sistema
 
 **Definizione Generica**: In questo corso, considereremo un **sistema generico**, con un focus particolare sui **sistemi cyber-fisici**. Tuttavia, per ora, manteniamo il discorso generale.
 
@@ -23,7 +23,7 @@ Elementi da validare:
   - **Dependability**: Capacità del sistema di evitare fallimenti e, se presenti, di limitarne le conseguenze. 
     - *Esempio*: In un sistema ferroviario, si cerca di garantire che i treni non si guastino frequentemente. E anche se un treno si guasta, il sistema deve evitare conseguenze catastrofiche, come incidenti gravi.
 
-#### Funzionamento del Sistema
+### Funzionamento del Sistema
 
 **Servizio Corretto → Servizio Errato → Ripristino**: Idealmente, il sistema passa dal servizio corretto al servizio errato, ma deve essere in grado di riprendersi (es. ripristino).
 
@@ -32,7 +32,7 @@ Elementi da validare:
 **Livelli di Funzionamento**: La definizione di "corretto funzionamento" varia:
   - *Esempio 1*: Un treno è considerato "funzionante" se parte in orario e si ferma dove necessario, o solo se nessuno si fa male a bordo?
   - *Esempio 2*: Un protocollo di rete può essere valutato in base alla gestione dei casi di fallimento, ai tempi di risposta, alla gestione degli errori del disco, ecc. Alcuni aspetti richiedono alti livelli di successo (es. 99.9999%), altri no.
-#### Proprietà di un Sistema Dependable
+### Proprietà di un Sistema Dependable
 
 - **Availability**: Disponibilità continua del servizio corretto.
 - **Reliability**: Continuità del servizio senza interruzioni (es. un aereo non può permettersi neanche un secondo di inattività).

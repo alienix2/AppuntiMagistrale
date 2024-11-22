@@ -2,30 +2,28 @@
 
 **Miglior dettaglio:** <https://github.com/fpinell/mlsa/tree/main/notebooks>
 
-Le capacità dell'unsupervised learning sono egualmente buone per identificare dati che sono nel dataset e che non sono nel dataset. (al contrario del supervised che non funziona bene su dati ignoti). Il punto è che se non hai i labels non puoi proprio usare il supervised learning.
+Le capacità dell'**unsupervised learning** sono ugualmente efficaci sia nell'identificare dati presenti nel dataset sia nel riconoscere dati che non fanno parte del dataset. Al contrario, il **supervised learning** non funziona altrettanto bene su dati sconosciuti. In effetti, se non si dispone delle etichette (labels), non è possibile utilizzare il supervised learning.
 ![supervised_unsupervised](../Screenshots/supervised_unsupervised)
 
 ## Clustering
 
-Il processo di clustering consiste nel dividere i dati in gruppi omogenei. Si vogliono identificare i dati in modo da trovare dei gruppi di dati simili fra loro. I dati che che sono lontani da tutti i cluster sono definiti come **anomalies** (anomalie). *Nota:* le anomalies devono comunque essere inserite all'interno di uno dei cluster per questo motivo potrebbe essere che siano inserite nel cluster sbagliato.  
+Il processo di clustering consiste nel dividere i dati in gruppi omogenei. Si vogliono identificare i dati in modo da trovare dei gruppi di dati simili fra loro. I dati che che sono lontani da tutti i cluster sono definiti come **anomalies** (anomalie). 
+*Nota:* le anomalies devono comunque essere inserite all'interno di uno dei cluster per questo motivo potrebbe essere che siano inserite nel cluster sbagliato.  
 *Es.*
 ![clustering_anomalies](../Screenshots/clustering_anomalies)
-Le X sono mal classificate mentre le V sono ben classificate, di base si può vedere che sarebbe molto difficile classificare i punti all'esterno dei cluster ai quali sembrano appartenere.
+Le $X$ sono mal classificate mentre le $V$ sono ben classificate, di base si può vedere che sarebbe molto difficile classificare i punti all'esterno dei cluster ai quali sembrano appartenere.
 
 ### K-means
 
-k-means è un metodo di clustering che si basa su un numero di cluster k. L'idea è di trovare k **centroidi** che rappresentano i cluster.  
-K-means si basa sul numero di centroidi passati per poi andare ad identificare dei centroidi calcolare la distanza dei diversi punti dal centroide più vicino. Nel metodo si tentano più iterazioni che partono da centroidi diversi (ma sempre in stesso numero) per poi andare a prendere la scelta migliore in basa alla **mean**, ovvero la distanza media dei punti dal centroide più vicino.
+Il **k-means** è un metodo di clustering che richiede di specificare un numero di cluster $k$. L'obiettivo è quello di individuare $k$ **centroidi** che rappresentano i cluster. In questo metodo, si inizia assegnando casualmente $k$ centroidi e, attraverso diverse iterazioni, si cerca di affinare la posizione dei centroidi per minimizzare la distanza media dei punti dal centroide più vicino.
 
-#### Finding the number of K
-
-Ci sono diversi modi per capire il numero migliore di cluster da considerare, ad esempio l'algoritmo G-Means è un estensione di k-means che oltre ad eseguire la tecnica k-means calcola anche il numero di cluster secondo alcune euristiche. Un altro metodo utilizzato è quello dell **elbow plot** che consiste nell'andare ad identificare di quanto varia la precisione del metodo al variare di k e prendendo il punto in cui la varianza diventa molto piccola. **N.B:** in generale se io prendo tanti cluster quanti sono i punti chiaramente la distanza di ogni punto dal centroide più vicino diventa 0, ma questo **NON** è un buon clustering.
+Durante ogni iterazione, per ciascun punto nel dataset, si calcola la distanza dal centroide più vicino e lo si assegna al cluster corrispondente. Successivamente, i centroidi vengono ricalcolati come il punto medio (mean) dei punti assegnati a ciascun cluster. Questo processo continua fino a quando i centroidi non cambiano più o fino al raggiungimento di un numero massimo di iterazioni. Tra le varie configurazioni esplorate, viene selezionata quella che minimizza la distanza media dei punti dai rispettivi centroidi.
 
 ## Density-based
 
 Questo tipo di catalogazione si basa sulla densità dei dati. L'idea è di trovare dei cluster in cui i dati sono molto vicini fra loro. Se un punto è lontano da tutti gli altri allora viene considerato una anomaly.
 
-La principale differenza coi metodi di clustering classici è che un punto che si trova al centro rispetto ad altri punti che gli stanno intorno viene considerato un'anomaly mentre coi metodi di clustering classici sarebbe stato considerato proprio come centroide.
+La principale differenza rispetto ai metodi di clustering classici è che un punto situato al centro rispetto ad altri punti circostanti viene considerato un'anomalia, mentre nei metodi di clustering classici sarebbe stato considerato come un centroide.
 
 Con questi metodi di solito si scelgono dei punti chiamati **observer points** che permettono di capire se un punto è un anomaly oppure no. Se un punto è "troppo" lontano è un anomaly.
 
@@ -57,7 +55,7 @@ Come si può vedere in questo caso il comportamento è peggiore rispetto ad ODIN
 L'idea di base è usare delle analisi statistiche per creare una distribuzione e poi capire se un punto è aderente a quella distribuzione oppure no.
 
 Un esempio di questo è **HBOS** (Histogram-Based Outlier Score) che si basa su un istogramma. Gli istogrammi si creano basandosi sulle frequenze dei dati. Se un punto appartiene ad una colonna bassa vuol dire che il punto è un'anomaly.  
-$HBOS(p) = \sum_{i=0}^d{log(\frac{1}{hist_i(p)})}$  
+$$HBOS(p) = \sum_{i=0}^d{log(\frac{1}{hist_i(p)})}$$  
 *Es. di HBOS applicato all'esempio di prima:*
 ![HBOS](../Screenshots/hbos)  
 
