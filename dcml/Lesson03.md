@@ -11,7 +11,8 @@ Esempi di Problemi nel Monitoraggio di Sistemi Distribuiti:
 
 - **Sicurezza Web**: ho due dispositivi, il primo riceve un numero alto di ping e il secondo pure. Se i due non si controllano a vicenda potrebbero semplicemente pensare che ci sia un aumento di accessi, mentre in realtà, analizzando tutto il sistema, si potrebbe dedurre che in effetti è in atto un attacco DDOS.
 
-#### Monitoring di Sistemi Distribuiti
+### Monitoring di Sistemi Distribuiti
+
 **Domande da farsi:**
 1. È semplice monitorare i sistemi distribuiti?
 2. È sempre permesso inserire dei **probe** nel sistema?
@@ -26,7 +27,9 @@ Esempi di Problemi nel Monitoraggio di Sistemi Distribuiti:
 
 **Esempio**:
 Immagina un caso in cui **Google** e **Unifi** devono collaborare (Google -|-> Unifi). Google fornisce API, ma queste non permettono di accedere a tutte le informazioni, come i dati sui **failure** del sistema. Se Unifi riceve un avviso di failure da Google, come gestisce e comunica Unifi l'incidente agli utenti? Se si usa un singolo dispositivo per monitorare, il fallimento di quel dispositivo può causare problemi a tutto il sistema.
-#### Strategie di Monitoring
+
+### Strategie di Monitoring
+
 Esistono principalmente due strategie di monitoring:
 
 1. **Selezione di un Leader**: Si sceglie un computer come **leader**. Questo leader coordina gli altri dispositivi, gestendo i **probe** e analizzando i dati per prendere decisioni basate sulle informazioni raccolte.

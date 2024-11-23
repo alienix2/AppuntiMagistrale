@@ -1,11 +1,13 @@
 # Lezione 2 - Metrology e Monitoring
 
-#### Metrology
+## Metrology
+
 **Definizione**: la metrologia è la scienza delle misure e dei pesi. Anche se è una disciplina con molti tecnicismi, in questo corso ci concentreremo sugli aspetti fondamentali senza approfondire i dettagli tecnici.
 
   - *Esempio*: una sonda caduta su Marte a causa di un errore nelle misure (due team usavano sistemi metrici diversi).
   
-#### Misura
+### Misura
+
  **Definizione**: processo di ottenimento di una o più misure di una quantità, associabili ragionevolmente alla quantità stessa. Obiettivo: determinare la misura del **misurando** (oggetto della misura).
 
 **Elementi necessari**:
@@ -15,7 +17,8 @@
   
   *Esempio*: misurazione della temperatura corporea - un termometro deve essere tarato per evitare errori (es. il termometro potrebbe raffreddare il corpo).
 
-#### Intrusiveness
+### Intrusiveness
+
 **Definizione**: la capacità di un metodo di misura di modificare il valore che intende misurare.
 
 **Problematicità**: in un sistema complesso come un sistema operativo, è difficile evitare l'intrusiveness; anche un monitoraggio indiretto può alterare le misure.
@@ -36,8 +39,8 @@ Un misura spesso ha problemi che possono portare a degli errori.
 
 *Nota*: Gli errori casuali (random) rendono impossibile una misura 100% accurata. Tuttavia, in certi contesti (es. giochi) l'incertezza può essere vantaggiosa.
 
----
-#### Monitoring
+## Monitoring
+
 **Obiettivo**:  monitorare costantemente il sistema in esecuzione nel suo ambiente finale, verificando che il comportamento osservato e le performance rispettino regole ben definite.
 
 Monitoring di solito è fatto sia online che offline. Ed è accostato con **verification** per analizzare i dati raccolti. Quest'ultimi sono raccolti quando il sistema è in esecuzione, tuttavia l'analisi dei dati può essere fatto anche a sistema spento
@@ -65,7 +68,7 @@ Ci sono diversi problemi tecnici che possono accadere durante l'utilizzo di un s
 - **Black Box**: Un sistema che non consente di vedere all'interno, quindi il suo funzionamento è sconosciuto (non monitorabile esternamente).
 - **White Box**: Permette di vedere all'interno e monitorare le risorse utilizzate.
 
-**Probes**
+##### Probes
 I *probe* sono dei processi che permettono di monitorare un sistema in esecuzione. Normalmente i probe in un sistema operativo si trovano a livello utente, possono eseguire system call ma non possono dialogare direttamente con i livelli più bassi rispetto al sistema operativo. Questo comportamento è ottimo, ad esempio, per evitare che un virus possa creare danni irreparabili in un sistema.
 Il task manager (o `top`) è integrato nel sistema operativo quindi è in grado di fare alcune analisi più dettagliate sapendo esattamente tutte le chiamate di sistema ed essendo una **white box** rispetto al sistema operativo (ovvero se stesso).
 Un sistema di monitoring di solito ha più di un probe, ognuno dei quali monitora una parte diversa.
