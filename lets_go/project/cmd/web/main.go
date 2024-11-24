@@ -66,6 +66,9 @@ func main() {
 	sessionManager.Store = mysqlstore.New(db)
 	sessionManager.Lifetime = 24 * time.Hour
 
+	// I use the secure attribute for the session cookie
+	sessionManager.Cookie.Secure = true
+
 	app := &application{
 		errorLog:       errorLog,
 		infoLog:        infoLog,
@@ -85,7 +88,11 @@ func main() {
 	// http.ListenAndServe() starts the server on port 4000 and is an http server. Uses the servermux we created
 	// If http.ListenAndServe() returns an error, log.Fatal() will log the error and exit the program. All the error are non-nil
 	infoLog.Printf("Starting server on %s", *addr)
-	err = srv.ListenAndServe()
+	// err = srv.ListenAndServe()
+
+	// I use the ListenAndServeTLS() method to start the HTTPS server. This method takes the path to the TLS certificate
+	err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
+
 	errorLog.Fatal(err)
 }
 
