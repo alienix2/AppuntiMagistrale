@@ -19,6 +19,10 @@
     <main>
       {{template "nav" .}}
       <main>
+        <!-- I render the .Flash if that is not empty -->
+        {{with .Flash}}
+          <div class='flash'>{{.}}</div>
+        {{end}}
         {{template "main" .}}
       </main>
     </main>

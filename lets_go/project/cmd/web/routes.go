@@ -27,13 +27,19 @@ func (app *application) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
 	// router.HandlerFunc(http.MethodGet, "/home", app.home)
-	router.HandlerFunc(http.MethodGet, "/", app.home)
-	router.HandlerFunc(http.MethodGet, "/snippet/view/:id", app.snippetView)
-	router.HandlerFunc(http.MethodGet, "/snippet/create", app.snippetCreate)
-	router.HandlerFunc(http.MethodPost, "/snippet/create", app.snippetCreatePost)
+
+	// I create a new middleWare chain for dynamic routes
+	dynamic := alice.New(app.sessionManager.LoadAndSave)
+
+	// Note: if using app methods directly, use router.HandlerFunc instead of router.Handler
+	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
+	router.Handler(http.MethodGet, "/snippet/view/:id", dynamic.ThenFunc(app.snippetView))
+	router.Handler(http.MethodGet, "/snippet/create", dynamic.ThenFunc(app.snippetCreate))
+	router.Handler(http.MethodPost, "/snippet/create", dynamic.ThenFunc(app.snippetCreatePost))
 
 	// return app.recoverPanic(app.logRequest(secureHeaders(mux)))
-	return alice.New(app.recoverPanic, app.logRequest, secureHeaders).Then(router)
+	standard := alice.New(app.recoverPanic, app.logRequest, secureHeaders).Then(router)
+	return standard
 }
 
 type neuteredFileSystem struct {
