@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"database/sql"
 	"flag"
 	"html/template"
@@ -22,6 +23,7 @@ type application struct {
 	errorLog       *log.Logger
 	infoLog        *log.Logger
 	snippets       *models.SnippetModel
+	users          *models.UserModel
 	templateCache  map[string]*template.Template
 	formDecoder    *form.Decoder
 	sessionManager *scs.SessionManager
@@ -73,16 +75,28 @@ func main() {
 		errorLog:       errorLog,
 		infoLog:        infoLog,
 		snippets:       &models.SnippetModel{DB: db},
+		users:          &models.UserModel{DB: db},
 		templateCache:  templateCache,
 		formDecoder:    formDecoder,
 		sessionManager: sessionManager,
 	}
 
+	// I change the TLS setting to optimize it (OPTIONAL)
+	tlsConfig := &tls.Config{
+		CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
+	}
+
 	// Inizialize an http.Server struct to use our loggers and serverMux
 	srv := &http.Server{
-		Addr:     *addr,
-		ErrorLog: errorLog,
-		Handler:  app.routes(),
+		Addr:      *addr,
+		ErrorLog:  errorLog,
+		Handler:   app.routes(),
+		TLSConfig: tlsConfig,
+
+		// Server timeouts
+		IdleTimeout:  time.Minute,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
 	}
 
 	// http.ListenAndServe() starts the server on port 4000 and is an http server. Uses the servermux we created

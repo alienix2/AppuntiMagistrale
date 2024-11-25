@@ -1,6 +1,7 @@
 package validator
 
 import (
+	"regexp"
 	"strings"
 	"unicode/utf8"
 )
@@ -9,6 +10,10 @@ import (
 type Validator struct {
 	FieldErrors map[string]string
 }
+
+// I use this regular expression to check if the email is valid
+// if it's not a panix is thrown
+var EmailRX = regexp.MustCompile(`^(?i)[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$`)
 
 // function returning true if the Validator is empty
 func (v *Validator) Valid() bool {
@@ -42,6 +47,15 @@ func NotBlank(value string) bool {
 // MaxChars returns true if the number of characters is less than or equal to the max
 func MaxChars(value string, max int) bool {
 	return utf8.RuneCountInString(value) <= max
+}
+
+// MinChars returns true if the number of characters is greater than or equal to the min
+func MinChars(value string, min int) bool {
+	return utf8.RuneCountInString(value) >= min
+}
+
+func Matches(value string, rx *regexp.Regexp) bool {
+	return rx.MatchString(value)
 }
 
 // PermittedInt if a value is in a list of permitted integers
