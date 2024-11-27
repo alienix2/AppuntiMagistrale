@@ -10,11 +10,12 @@ import (
 
 // Define an application struct that contains any dynamic data that the handlers may need
 type templateData struct {
-	Flash       string
-	Form        any
-	Snippet     *models.Snippet
-	Snippets    []*models.Snippet
-	CurrentYear int
+	Flash           string
+	Form            any
+	Snippet         *models.Snippet
+	Snippets        []*models.Snippet
+	CurrentYear     int
+	IsAuthenticated bool
 }
 
 // humanDate function with a date formatted in human readable format

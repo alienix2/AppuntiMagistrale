@@ -8,7 +8,8 @@ import (
 
 // Define a new type named Validator which contains a map of errors
 type Validator struct {
-	FieldErrors map[string]string
+	FieldErrors    map[string]string
+	NonFieldErrors []string // I use this to store errors that are not related to a specific field
 }
 
 // I use this regular expression to check if the email is valid
@@ -30,6 +31,10 @@ func (v *Validator) AddFieldError(key, message string) {
 	if _, ok := v.FieldErrors[key]; !ok {
 		v.FieldErrors[key] = message
 	}
+}
+
+func (v *Validator) AddNonFieldError(message string) {
+	v.NonFieldErrors = append(v.NonFieldErrors, message)
 }
 
 // function that adds an error message to the map of errors

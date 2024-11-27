@@ -56,10 +56,15 @@ func (app *application) render(w http.ResponseWriter, status int, page string, d
 	buf.WriteTo(w)
 }
 
-// I create a helper for the templateData that allows to add the current year
+// I create a helper for the templateData that allows to set the current year
+// It also pops any flash message from the session
+// And also checks if the user is autenticated
 func (app *application) newTemplateData(r *http.Request) *templateData {
 	return &templateData{
 		CurrentYear: time.Now().Year(),
 		Flash:       app.sessionManager.PopString(r.Context(), "flash"),
+
+		// Add the authentication status to the template data
+		IsAuthenticated: app.isAuthenticated(r),
 	}
 }

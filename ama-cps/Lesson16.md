@@ -122,4 +122,4 @@ The **state transition-rate matrix** is a matrix that contains the rate of going
 
 - the initial distribution $\pi(0)$
 - the state transition-rate matrix Q, which is also called the **infinitesimal generator** matrix, defined as:
-$$ q_{ij} = \begin{cases} -\sum_{j \neq i} q_{ij} & \text{if } i = j \\ p_{ij} & \text{if } i \neq j \end{cases}$$
+$$q_{ij} = \begin{cases} -\sum_{j \neq i} q_{ij} & \text{if } i = j \\ p_{ij} & \text{if } i \neq j \end{cases}$$

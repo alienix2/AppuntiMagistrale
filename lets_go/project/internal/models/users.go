@@ -54,7 +54,33 @@ func (m *UserModel) Insert(name, email, password string) error {
 
 // We define an authenticate method to verify whether a user exists with the provided email and password
 func (m *UserModel) Authenticate(email, password string) (int, error) {
-	return 0, nil
+	// Retrieve de ID and hashed password from the db associated with the given email
+	// If no matching email is found, we return the ErrInvalidCredentials error
+	var id int
+	var hashedPassword []byte
+
+	stmt := `SELECT id, hashed_password FROM users WHERE email = ?`
+
+	err := m.DB.QueryRow(stmt, email).Scan(&id, &hashedPassword)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return 0, ErrInvalidCredentials
+		} else {
+			return 0, err
+		}
+	}
+
+	// I check if the hashed password and plain-text password match. If they don't, we return the ErrInvalidCredentials error
+	err = bcrypt.CompareHashAndPassword(hashedPassword, []byte(password))
+	if err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			return 0, ErrInvalidCredentials
+		} else {
+			return 0, err
+		}
+	}
+	// If we reach here the passwd and email are correct
+	return id, nil
 }
 
 // We define a method to check if a user already exists with a specific ID
