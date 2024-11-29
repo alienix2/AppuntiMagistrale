@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calendar id="nz" name="New Zealand National Holidays 2022-2025" type="country">
+<!-- r -->
+	<date year="" month="01" date="01"><![CDATA[New Year's Day]]></date>
+	<date year="" month="01" date="02"><![CDATA[Day after New Year's Day]]></date>
+	<date year="" month="02" date="06"><![CDATA[WaitangiDay]]></date>
+	<date year="" month="04" date="25"><![CDATA[Anzac Day]]></date>
+	<date year="" month="12" date="25"><![CDATA[Christmas]]></date>
+	<date year="" month="12" date="26"><![CDATA[Boxing Day]]></date>
+
+
+	<date year="2025" month="04" date="18"><![CDATA[Good Friday]]></date>
+	<date year="2025" month="04" date="21"><![CDATA[Easter Monday]]></date>
+	<date year="2025" month="06" date="02"><![CDATA[Queen's Birthday]]></date>
+	<date year="2025" month="06" date="20"><![CDATA[Matariki]]></date>
+	<date year="2025" month="10" date="27"><![CDATA[Labour Day]]></date>
+
+	<date year="2024" month="02" date="06"><![CDATA[WaitangiDay - Observed]]></date>
+	<date year="2024" month="03" date="29"><![CDATA[Good Friday]]></date>
+	<date year="2024" month="04" date="01"><![CDATA[Easter Monday]]></date>
+	<date year="2024" month="06" date="03"><![CDATA[Queen's Birthday]]></date>
+	<date year="2024" month="06" date="28"><![CDATA[Matariki]]></date>
+	<date year="2024" month="10" date="28"><![CDATA[Labour Day]]></date>
+
+
+	<date year="2023" month="01" date="02"><![CDATA[New Year's Day - Observed]]></date>
+	<date year="2023" month="01" date="03"><![CDATA[Day after New Year's Day - Observed]]></date>
+	<date year="2023" month="04" date="07"><![CDATA[Good Friday]]></date>
+	<date year="2023" month="04" date="10"><![CDATA[Easter Monday]]></date>
+	<date year="2023" month="06" date="05"><![CDATA[Queen's Birthday]]></date>
+	<date year="2023" month="07" date="14"><![CDATA[Matariki]]></date>
+	<date year="2023" month="10" date="23"><![CDATA[Labour Day]]></date>
+
+	<date year="2022" month="01" date="03"><![CDATA[New Year's Day - Observed]]></date>
+	<date year="2022" month="01" date="04"><![CDATA[Day after New Year's Day - Observed]]></date>
+	<date year="2022" month="02" date="07"><![CDATA[WaitangiDay - Observed]]></date>
+	<date year="2022" month="04" date="15"><![CDATA[Good Friday]]></date>
+	<date year="2022" month="04" date="18"><![CDATA[Easter Monday]]></date>
+	<date year="2022" month="06" date="06"><![CDATA[Queen's Birthday]]></date>
+	<date year="2022" month="06" date="24"><![CDATA[Matariki]]></date>
+	<date year="2022" month="10" date="24"><![CDATA[Labour Day]]></date>
+	<date year="2022" month="12" date="26"><![CDATA[Christmas Day - Observed]]></date>
+	<date year="2022" month="12" date="27"><![CDATA[Boxing Day - Observed]]></date>
+
+</calendar>

@@ -89,4 +89,4 @@ In order to compute the **slack time** we consider an AON notation as follows:
 - the critical path is the path in which all the activities have a slack time of 0
 - every plan has a critical path
 
-
+**Note:** A GANTT chart must be presented for the final document of the exam's project.

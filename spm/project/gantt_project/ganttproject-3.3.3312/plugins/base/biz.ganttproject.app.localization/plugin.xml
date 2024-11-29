@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+        id="biz.ganttproject.app.localization"
+        name="GanttProject localization files"
+        version="3.0.0"
+        provider-name="">
+
+    <runtime>
+        <library name="translations/">
+            <export name="*">
+            </export>
+        </library>
+        <library name="resources/">
+            <export name="*">
+            </export>
+        </library>
+    </runtime>
+    <requires>
+        <import plugin="net.sourceforge.ganttproject"/>
+    </requires>
+    <extension point="net.sourceforge.ganttproject.calendar">
+        <bundle path="calendars" pattern="i18n.*.calendar"/>
+    </extension>
+    <extension point="net.sourceforge.ganttproject.l10n">
+        <bundle path="i18n"/>
+    </extension>
+</plugin>

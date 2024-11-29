@@ -10,6 +10,7 @@ import (
 
 // Define an application struct that contains any dynamic data that the handlers may need
 type templateData struct {
+	CSRFtoken       string
 	Flash           string
 	Form            any
 	Snippet         *models.Snippet

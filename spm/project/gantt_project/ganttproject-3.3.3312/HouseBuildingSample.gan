@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="" company="" webLink="" view-date="2024-05-19" view-index="0" gantt-divider-location="693" resource-divider-location="322" version="3.3.3309" locale="en">
+    <description/>
+    <view zooming-state="default:6" id="gantt-chart">
+        <field id="tpd3" name="Name" width="257" order="0"/>
+        <field id="tpd4" name="Begin date" width="139" order="1"/>
+        <field id="tpd5" name="End date" width="130" order="2"/>
+        <field id="tpd12" name="Cost" width="63" order="3"/>
+        <field id="tpc0" name="Is done" width="88" order="4"/>
+        <option id="taskLabelRight" value="name"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <timeline><![CDATA[49]]></timeline>
+        <option id="color.recent"><![CDATA[#ff0066]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="160" order="0"/>
+        <field id="1" name="Default role" width="158" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+        <date year="2006" month="2" date="14" type="HOLIDAY"/>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+            <taskproperty id="tpc0" name="Is done" type="custom" valuetype="boolean" defaultvalue="false">
+                <simple-select select="completion=100"/>
+            </taskproperty>
+        </taskproperties>
+        <task id="0" uid="11366eb6d1e34238866b347d1f40062d" name="Architectural design" color="#99ccff" meeting="false" start="2024-05-27" duration="25" complete="85" expand="true" cost-manual-value="0" cost-calculated="false">
+            <customproperty taskproperty-id="tpc0" value="false"/>
+            <task id="9" uid="5fd8ed5da21241e99a89179e6edb4fe1" name="Create draft of architecture" color="#99ccff" meeting="false" start="2024-05-27" duration="10" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="10" type="2" difference="0" hardness="Strong"/>
+                <depend id="12" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="true"/>
+            </task>
+            <task id="10" uid="73abfcd7ce684c55a742d8fca3514c92" name="Prepare construction documents" color="#ff0066" meeting="false" start="2024-06-10" duration="15" complete="75" thirdDate="2022-02-24" thirdDate-constraint="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="17" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="17" uid="b4f64881ec3e4ef482a6f77b18886bea" name="Agreement on architectural plan " color="#000000" meeting="true" start="2024-07-01" duration="0" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="1" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+        </task>
+        <task id="11" uid="31e801fd4a7c4a15865a6cbb69ddc48f" name="Interior design" color="#99ccff" meeting="false" start="2024-06-10" duration="10" complete="33" expand="true" cost-manual-value="0" cost-calculated="false">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+            <customproperty taskproperty-id="tpc0" value="false"/>
+            <task id="12" uid="cea0fd324a3f45eabb60758bde36e3d7" name="Pre-design" color="#99ccff" meeting="false" start="2024-06-10" duration="5" complete="100" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="13" type="2" difference="0" hardness="Strong"/>
+                <depend id="14" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="true"/>
+            </task>
+            <task id="13" uid="2cfba44e55b54f0988e5be3b81bd4640" name="Furniture selection" color="#99ccff" meeting="false" start="2024-06-17" duration="5" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="14" uid="9b2204155e774ec5bef1c75a37a0d85e" name="Equipment planning" color="#99ccff" meeting="false" start="2024-06-17" duration="5" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <notes><![CDATA[
+                    Embedded devices, kitchen, washing machine, dryer etc
+                ]]></notes>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+        </task>
+        <task id="7" uid="daf2bf8e7e384aa7ad0af36b53be3a24" name="Construction phase" color="#99ccff" meeting="false" start="2024-07-01" duration="75" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+            <customproperty taskproperty-id="tpc0" value="false"/>
+            <task id="1" uid="eb8213177e044b4889e7f7936605369b" name="Foundation building" color="#99ccff" meeting="false" start="2024-07-01" duration="15" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="2" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="2" uid="5c1d833760da4b62b7e38aeed0a8bc31" name="Ground Floor building" color="#99ccff" meeting="false" start="2024-07-22" duration="20" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="4" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="4" uid="3cdccc3209c44904b949d953b5f4f612" name="First Floor building" color="#99ccff" meeting="false" start="2024-08-19" duration="20" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="5" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="5" uid="74e003b6937246a3846270c81cb69d5d" name="Roof" color="#99ccff" meeting="false" start="2024-09-16" duration="10" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="18" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="16" uid="ba7342cf332b4f86865ce3fb90dd3671" name="Connect to communications" color="#99ccff" meeting="false" start="2024-09-30" duration="10" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="18" uid="f256375e17da470eb0e444b2997efdb0" name="Construction completed " color="#000000" meeting="true" start="2024-09-30" duration="0" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="6" type="2" difference="0" hardness="Strong"/>
+                <depend id="16" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+        </task>
+        <task id="8" uid="35218b8e0a38431dbd0e95a47783c674" name="Decoration phase" color="#99ccff" meeting="false" start="2024-09-30" duration="10" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+            <customproperty taskproperty-id="tpc0" value="false"/>
+            <task id="6" uid="63997695198e471285808b788ac7656d" name="Walls" color="#99ccff" meeting="false" start="2024-09-30" duration="5" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="15" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="15" uid="239f6e24a17d40a3a74f5a9d6ea85165" name="Furniture" color="#99ccff" meeting="false" start="2024-10-07" duration="3" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <depend id="20" type="2" difference="0" hardness="Strong"/>
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+            <task id="20" uid="48fd540f238144cc9782579742c3b575" name="Bring your family here" color="#000000" meeting="true" start="2024-10-14" duration="0" complete="0" expand="true" cost-manual-value="0" cost-calculated="false">
+                <customproperty taskproperty-id="tpc0" value="false"/>
+            </task>
+        </task>
+        <task id="49" uid="ff7c311f5ea84a2990770c2ebf5a8d9e" name="GanttProject 3.3" color="#ff3333" meeting="true" start="2024-05-27" duration="0" complete="0" thirdDate="2018-02-06" thirdDate-constraint="0" expand="true" cost-manual-value="0.0" cost-calculated="false">
+            <depend id="0" type="2" difference="0" hardness="Rubber"/>
+            <customproperty taskproperty-id="tpc0" value="false"/>
+        </task>
+    </tasks>
+    <resources>
+        <resource id="1" name="Jack House" function="Default:1" contacts="" phone="0044 077345456"/>
+        <resource id="0" name="John Black" function="4" contacts="" phone="+44 0794353567">
+            <rate name="standard" value="40"/>
+        </resource>
+        <resource id="2" name="Michelangelo" function="0" contacts="" phone="078 9059056">
+            <rate name="standard" value="1000"/>
+        </resource>
+        <resource id="3" name="Tom White" function="1" contacts="" phone="07978978978">
+            <rate name="standard" value="50"/>
+        </resource>
+        <resource id="4" name="Peter Green" function="1" contacts="" phone="0797897856">
+            <rate name="standard" value="50"/>
+        </resource>
+        <resource id="5" name="George Brown" function="1" contacts="" phone="07967766447">
+            <rate name="standard" value="50"/>
+        </resource>
+        <resource id="6" name="John Silver" function="2" contacts="" phone="07778967889">
+            <rate name="standard" value="100"/>
+        </resource>
+    </resources>
+    <allocations>
+        <allocation task-id="9" resource-id="1" function="Default:1" responsible="false" load="50.0"/>
+        <allocation task-id="12" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="13" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="1" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="15" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="0" function="4" responsible="false" load="100.0"/>
+        <allocation task-id="16" resource-id="0" function="4" responsible="true" load="100.0"/>
+        <allocation task-id="9" resource-id="2" function="0" responsible="true" load="100.0"/>
+        <allocation task-id="10" resource-id="2" function="0" responsible="true" load="100.0"/>
+        <allocation task-id="12" resource-id="2" function="0" responsible="false" load="50.0"/>
+        <allocation task-id="14" resource-id="2" function="0" responsible="false" load="50.0"/>
+        <allocation task-id="1" resource-id="3" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="2" resource-id="3" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="4" resource-id="3" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="5" resource-id="3" function="5" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="3" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="3" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="2" resource-id="4" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="4" resource-id="4" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="16" resource-id="4" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="4" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="1" resource-id="5" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="2" resource-id="5" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="4" resource-id="5" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="5" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="1" resource-id="6" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="2" resource-id="6" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="4" resource-id="6" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="5" resource-id="6" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="6" resource-id="6" function="2" responsible="true" load="100.0"/>
+    </allocations>
+    <vacations>
+        <vacation start="2009-02-02" end="2009-02-09" resourceid="1"/>
+    </vacations>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles>
+        <role id="0" name="Architect"/>
+        <role id="1" name="Bricklayer"/>
+        <role id="2" name="Foreman"/>
+        <role id="3" name="Decorator"/>
+        <role id="4" name="Excavator operator"/>
+        <role id="5" name="Roofer"/>
+    </roles>
+</project>

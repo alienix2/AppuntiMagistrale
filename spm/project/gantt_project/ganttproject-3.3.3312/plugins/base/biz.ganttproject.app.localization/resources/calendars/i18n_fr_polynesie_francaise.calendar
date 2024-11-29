@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calendar id="fr.polynesie-francaise" name="France (Polynésie française) National Holidays 2015-2025" type="country">
+    <!-- http://www.officeholidays.com/countries/france/ -->
+    <!-- and official french gouv api https://api.gouv.fr/les-api/jours-feries -->
+
+    <!-- recurring -->
+    <date year="" month="1" date="1" type="HOLIDAY"><![CDATA[1er janvier]]></date>
+    <date year="" month="5" date="1" type="HOLIDAY"><![CDATA[1er mai]]></date>
+    <date year="" month="5" date="8" type="HOLIDAY"><![CDATA[8 mai]]></date>
+    <date year="" month="7" date="14" type="HOLIDAY"><![CDATA[14 juillet]]></date>
+    <date year="" month="8" date="15" type="HOLIDAY"><![CDATA[Assomption]]></date>
+    <date year="" month="11" date="1" type="HOLIDAY"><![CDATA[Toussaint]]></date>
+    <date year="" month="11" date="11" type="HOLIDAY"><![CDATA[11 novembre]]></date>
+    <date year="" month="12" date="25" type="HOLIDAY"><![CDATA[Jour de Noël]]></date>
+
+
+    <!-- 2015 -->
+    <date year="2015" month="4" date="6" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2015" month="5" date="14" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2015" month="5" date="25" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2016 -->
+    <date year="2016" month="3" date="28" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2016" month="5" date="5" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2016" month="5" date="16" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2017 -->
+    <date year="2017" month="4" date="17" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2017" month="5" date="25" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2017" month="6" date="5" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2018 -->
+    <date year="2018" month="4" date="2" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2018" month="5" date="10" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2018" month="5" date="21" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2019 -->
+    <date year="2019" month="4" date="22" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2019" month="5" date="30" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2019" month="6" date="10" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2020 -->
+    <date year="2020" month="4" date="13" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2020" month="5" date="21" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2020" month="6" date="1" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2021 -->
+    <date year="2021" month="4" date="5" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2021" month="5" date="13" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2021" month="5" date="24" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2022 -->
+    <date year="2022" month="4" date="18" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2022" month="5" date="26" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2022" month="6" date="6" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2023 -->
+    <date year="2023" month="4" date="10" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2023" month="5" date="18" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2023" month="5" date="29" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2024 -->
+    <date year="2024" month="4" date="1" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2024" month="5" date="9" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2024" month="5" date="20" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+    <!-- 2025 -->
+    <date year="2025" month="4" date="21" type="HOLIDAY"><![CDATA[Lundi de Pâques]]></date>
+    <date year="2025" month="5" date="29" type="HOLIDAY"><![CDATA[Ascension]]></date>
+    <date year="2025" month="6" date="9" type="HOLIDAY"><![CDATA[Lundi de Pentecôte]]></date>
+
+</calendar>
