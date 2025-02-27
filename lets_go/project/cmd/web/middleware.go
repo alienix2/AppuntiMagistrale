@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -57,7 +58,7 @@ func (app *application) requireAuthentication(next http.Handler) http.Handler {
 		// If the user not authenticated, redirect to the login page and
 		// return from the middleware chain so that no other middleware are
 		// executed
-		if app.isAuthenticated(r) {
+		if !app.isAuthenticated(r) {
 			http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 			return
 		}
@@ -82,4 +83,34 @@ func noSurf(next http.Handler) http.Handler {
 	})
 
 	return csrfHandler
+}
+
+// Check if a user is authenticated
+func (app *application) authenticate(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// I retrieve the authenticatedUserID value from the session using the
+		// GetInt() method. If 0 user is not authenticated and other handlers are called
+		id := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+		if id == 0 {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		// Otherwise we check if in the database there is a user with the id
+		exists, err := app.users.Exists(id)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		// If a matching user is found then the user is authorized, we create a copy
+		// of the request and assign it to r
+		if exists {
+			ctx := context.WithValue(r.Context(), isAuthenticatedKey, true)
+			r = r.WithContext(ctx)
+		}
+
+		// After that I call the next handler
+		next.ServeHTTP(w, r)
+	})
 }

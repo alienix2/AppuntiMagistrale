@@ -11,6 +11,8 @@
     <!-- I change the nav bar based on the user's authentication status -->
     {{if .IsAuthenticated}}
       <form action='/user/logout' method='POST'>
+        <!-- I check the CSRF token -->
+        <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
         <button>logout</button>
       </form>
     {{else}}

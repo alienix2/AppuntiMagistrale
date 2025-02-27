@@ -11,17 +11,15 @@ adjusted_stakeholders = [
     {"name": "Marketing Team", "power": 1.2, "influence": 2},
     {"name": "Manufacturers/Suppliers", "power": 2, "influence": 1},
     {"name": "Technical Partners", "power": 2.1, "influence": 1.1},
-    {"name": "Competitors", "power": 3, "influence": 2.85},  # Adjusted influence
-    {"name": "Naysayers/Detractors", "power": 1.1, "influence": 1.9},  # Adjusted power
+    {"name": "Competitors", "power": 3, "influence": 2.85},
+    {"name": "Naysayers/Detractors", "power": 1.1, "influence": 1.9},
     {"name": "B2B Companies", "power": 2.8, "influence": 3},
 ]
 
-# Extract the adjusted data points
 adjusted_influences = [s["influence"] for s in adjusted_stakeholders]
 adjusted_powers = [s["power"] for s in adjusted_stakeholders]
 adjusted_names = [s["name"] for s in adjusted_stakeholders]
 
-# Create the scatter plot with adjusted positions
 plt.figure(figsize=(12, 8))
 
 plt.scatter(
@@ -35,7 +33,6 @@ plt.scatter(
 )
 
 
-# Annotate each point with stakeholder names, adding offsets to avoid overlap
 for i, name in enumerate(adjusted_names):
     plt.annotate(
         name,
@@ -67,5 +64,4 @@ plt.xlim(0.5, 3.5)
 plt.ylim(0.5, 3.5)
 plt.grid(color="gray", linestyle="--", linewidth=0.5)
 
-# Show the updated plot
 plt.show()

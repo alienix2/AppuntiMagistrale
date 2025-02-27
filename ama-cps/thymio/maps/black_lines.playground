@@ -1,0 +1,12 @@
+<!DOCTYPE aseba-playground>
+<aseba-playground>
+<color name="white" r="1.0" g="1.0" b="1.0" />
+<color name="red" r="0.77" g="0.2" b="0.15" />
+<color name="green" r="0" g="0." b="0.17" />
+<color name="blue" r="0" g="0.38" b="0.61" />
+<world w="140" h="140" color="white" groundTexture="two_lines.jpeg" />
+<!--position of the camera: x,y and altitude in cm, yaw, pitch in radians.-->
+<camera x="70" y="70" altitude="200" yaw="1.57" pitch="-1.56" />
+<robot type="thymio2" x="62" y="10" port="33334" angle="1.57" name="T1" nodeId="1"/>
+<robot type="thymio2" x="62" y="30" port="33335" angle="1.57" name="T2" nodeId="2"/>
+</aseba-playground>

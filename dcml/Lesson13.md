@@ -1,4 +1,4 @@
-# Analyze robustness of models under camera failures
+#Analyze robustness of models under camera failures
 
 This is a *lab* lecture, in the sense that we are going to try and write code with Atif.
 

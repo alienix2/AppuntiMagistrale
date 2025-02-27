@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"runtime/debug"
 	"time"
+
+	"github.com/justinas/nosurf"
 )
 
 // serverError helper writes an error message and stack trace to the errorLog
@@ -66,5 +68,16 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 
 		// Add the authentication status to the template data
 		IsAuthenticated: app.isAuthenticated(r),
+		CSRFToken:       nosurf.Token(r),
 	}
+}
+
+// isAuthenticated checks if a user is authenticated
+func (app *application) isAuthenticated(r *http.Request) bool {
+	isAuthenticated, ok := r.Context().Value(isAuthenticatedKey).(bool)
+	if !ok {
+		return false
+	}
+
+	return isAuthenticated
 }

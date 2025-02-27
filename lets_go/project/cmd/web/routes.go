@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"path/filepath"
 
+	"alienix2.letsgo/ui"
 	"github.com/julienschmidt/httprouter"
 	"github.com/justinas/alice"
 )
@@ -14,8 +15,15 @@ func (app *application) routes() http.Handler {
 	// mux := http.NewServeMux()
 	router := httprouter.New()
 
+	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		app.notFound(w)
+	})
+
 	// Create a file server which serves files out of the ./ui/static directory
-	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/static/")})
+
+	// fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/static/")})
+
+	fileServer := http.FileServer(neuteredFileSystem{http.FS(ui.Files)})
 
 	// Use mux.Handle() to register the file server as the handler for all URL paths that start with "/static/"
 	// For matching requests, we strip the "/static" prefix before the request reaches the file server
@@ -25,11 +33,17 @@ func (app *application) routes() http.Handler {
 	// mux.HandleFunc("/snippet/view", app.snippetView)
 	// mux.HandleFunc("/snippet/create", app.snippetCreate)
 
-	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
+	// router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
+
+	// The strip is not needed if we use the embedded filesystem cause the path is already stripped
+	router.Handler(http.MethodGet, "/static/*filepath", fileServer)
 	// router.HandlerFunc(http.MethodGet, "/home", app.home)
 
+	// Route for ping
+	router.HandlerFunc(http.MethodGet, "/ping", ping)
+
 	// I create a new middleWare chain for dynamic routes
-	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf)
+	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf, app.authenticate)
 
 	// Note: if using app methods directly, use router.HandlerFunc instead of router.Handler
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))

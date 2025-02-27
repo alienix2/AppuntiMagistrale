@@ -262,7 +262,7 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
 	form.CheckField(validator.NotBlank(form.Title), "title", "Title cannot be blank")
 	form.CheckField(validator.MaxChars(form.Title, 100), "title", "Title cannot be longer than 100 characters")
 	form.CheckField(validator.NotBlank(form.Content), "content", "Content cannot be blank")
-	form.CheckField(validator.PermittedInt(form.Expires, 1, 7, 365), "expires", "Invalid expiry value")
+	form.CheckField(validator.PermittedValue(form.Expires, 1, 7, 365), "expires", "Invalid expiry value")
 
 	// // If there is any error, return it in a HTTP reponse
 	// if len(form.FieldErrors) > 0 {
@@ -474,7 +474,6 @@ func (app *application) userLogoutPost(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-// Function that returns true if the user is autenticated
-func (app *application) isAuthenticated(r *http.Request) bool {
-	return app.sessionManager.Exists(r.Context(), "authenticatedUserID")
+func ping(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
 }

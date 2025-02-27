@@ -10,6 +10,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type UserModelInterface interface {
+	Insert(name, email, password string) error
+	Authenticate(email, password string) (int, error)
+	Exists(id int) (bool, error)
+}
+
 // Define a User type. The field names and type align with the columns in the database
 type User struct {
 	Created        time.Time
@@ -86,4 +92,13 @@ func (m *UserModel) Authenticate(email, password string) (int, error) {
 // We define a method to check if a user already exists with a specific ID
 func (m *UserModel) Get(id int) (*User, error) {
 	return nil, nil
+}
+
+// Method to check if a user exists with a specific id
+func (m *UserModel) Exists(id int) (bool, error) {
+	var exists bool
+
+	stmt := `SELECT EXISTS(SELECT 1 FROM users WHERE id = ?)`
+	err := m.DB.QueryRow(stmt, id).Scan(&exists)
+	return exists, err
 }

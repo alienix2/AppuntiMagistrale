@@ -2,15 +2,17 @@ package main
 
 import (
 	"html/template"
+	"io/fs"
 	"path/filepath"
 	"time"
 
 	"alienix2.letsgo/internal/models"
+	"alienix2.letsgo/ui"
 )
 
 // Define an application struct that contains any dynamic data that the handlers may need
 type templateData struct {
-	CSRFtoken       string
+	CSRFToken       string
 	Flash           string
 	Form            any
 	Snippet         *models.Snippet
@@ -21,7 +23,11 @@ type templateData struct {
 
 // humanDate function with a date formatted in human readable format
 func humanDate(t time.Time) string {
-	return t.Format("02 Jan 2006 at 15:04")
+	if t.IsZero() {
+		return ""
+	}
+
+	return t.UTC().Format("02 Jan 2006 at 15:04")
 }
 
 // Inizialize the template.FuncMap onject and store in a global variable
@@ -33,12 +39,13 @@ var functions = template.FuncMap{
 
 // Function to store the template in a cache
 func newTemplateCache() (map[string]*template.Template, error) {
-	// Initializea map cache
+	// Initialize a map cache
 	cache := map[string]*template.Template{}
 
 	// Use the filepath.Glob() function to get a slice of all filepath matching
 	// the pattern "./ui/html/*.page.tmpl.html"
-	pages, err := filepath.Glob("./ui/html/pages/*.tmpl.html")
+	// pages, err := filepath.Glob("./ui/html/pages/*.tmpl.html")
+	pages, err := fs.Glob(ui.Files, "html/pages/*.tmpl.html")
 	if err != nil {
 		return nil, err
 	}
@@ -60,20 +67,33 @@ func newTemplateCache() (map[string]*template.Template, error) {
 		// 	return nil, err
 		// }
 
-		// Parse the base template into a template set
-		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
-		if err != nil {
-			return nil, err
-		}
+		// // Parse the base template into a template set
+		// ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
+		//
+		//
+		// if err != nil {
+		// 	return nil, err
+		// }
+		//
+		// // Call parseGlob on the template to add any partials
+		// ts, err = ts.ParseGlob("./ui/html/partials/*.tmpl.html")
+		// if err != nil {
+		// 	return nil, err
+		// }
+		//
+		// // I call the ParseFiles method on the template set to add the page template
+		// ts, err = ts.ParseFiles(page)
+		// if err != nil {
+		// 	return nil, err
+		// }
 
-		// Call parseGlob on the template to add any partials
-		ts, err = ts.ParseGlob("./ui/html/partials/*.tmpl.html")
-		if err != nil {
-			return nil, err
+		// I use ParseFS instead of ParseFiles
+		patterns := []string{
+			"html/base.tmpl.html",
+			"html/partials/*tmpl.html",
+			page,
 		}
-
-		// I call the ParseFiles method on the template set to add the page template
-		ts, err = ts.ParseFiles(page)
+		ts, err := template.New(name).Funcs(functions).ParseFS(ui.Files, patterns...)
 		if err != nil {
 			return nil, err
 		}

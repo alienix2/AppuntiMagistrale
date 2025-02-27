@@ -1,6 +1,8 @@
 {{define "title"}}Signup{{end}}
 {{define "main"}}
 <form action='/user/signup' method='POST' novalidate>
+  <!-- I check the CSRF token -->
+  <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
   <div>
     <label>Name:</label>
     {{with .Form.FieldErrors.name}}
