@@ -1,0 +1,15 @@
+/home/Matteo/University/Magistrale/gd/c_sharp/bin/Debug/net9.0/c_sharp
+/home/Matteo/University/Magistrale/gd/c_sharp/bin/Debug/net9.0/c_sharp.deps.json
+/home/Matteo/University/Magistrale/gd/c_sharp/bin/Debug/net9.0/c_sharp.runtimeconfig.json
+/home/Matteo/University/Magistrale/gd/c_sharp/bin/Debug/net9.0/c_sharp.dll
+/home/Matteo/University/Magistrale/gd/c_sharp/bin/Debug/net9.0/c_sharp.pdb
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.GeneratedMSBuildEditorConfig.editorconfig
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.AssemblyInfoInputs.cache
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.AssemblyInfo.cs
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.csproj.CoreCompileInputs.cache
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.sourcelink.json
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.dll
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/refint/c_sharp.dll
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.pdb
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/c_sharp.genruntimeconfig.cache
+/home/Matteo/University/Magistrale/gd/c_sharp/obj/Debug/net9.0/ref/c_sharp.dll

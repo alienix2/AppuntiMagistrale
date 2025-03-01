@@ -2,7 +2,7 @@
 
 We should look for the topics on the moodle about the theoretical part and study **both from the slides and the book**.
 
-For the **project** we make a p**roposal and we send it to him** (around 1 page). The project should cover several topics of the course.
+For the **project** we make a **proposal and we send it to him** (around 1 page). The project should cover several topics of the course.
 
 The project should be submitted before the date that is written on the SOL page. The submission must include:
 
