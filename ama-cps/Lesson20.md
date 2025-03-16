@@ -60,4 +60,71 @@ Each transitions has a **timer**. When the transition is activated then the time
 
 *Note:* the tokens are still in the input places as long as the transition is enabled, only when it fires they are removed from input places and put in the output places.
 
-A sequence of timed transitions is defined as:
+A sequence of timed transitions is defined as $(t_{k_1}, T_{k_1}), ..., (t_{k_r}, T_{k_r})$ where T are the transitions and t are the firing instant of the corresponding transition.
+
+An interval of time between two subsequent firings can be seen as $[t_{k_i}, t_{k_{i+1}})$
+
+*Note:* the transition should also be enabled during the whole local delay period. If during that delay time the transition becomes no longer enabled then the transition won't fire.
+
+### Interpretation
+
+In this case when using these PNs we should have a specific idea in mind. In particular we can think of having something that is time dependent and we want to model the time dependency of the system.
+
+**Duration of activity**: value associated to the transition when it's enabled
+**Execution of the activity**: transition is enabled
+**End of the activity**: transition is fired
+**Interruption of the activity**: transition is disabled
+
+*Note:* this means that ofc the transition may recover if the transition is enabled again.
+
+### Memory mechanism
+
+At every transition firing one of these two mechanisms can be adopted to set the timer:
+
+- **continue**: the timer keeps the current value and continues following the countdown
+- **restart**: the timer resets, which means that the current value is discarded and a new one is generated (if needed)
+
+These two options are called **memory policies** and are applied to keep track of the past.
+
+### Resampling
+
+This strategy works as follows:
+
+- The timer of an enabled transitions resets on every firing of any other transition
+- A new value of the timer is generated if, the new marking the transition is still enabled.
+
+### Enabling memory
+
+This strategy works as follows:
+
+- if in the new marking T is still enabled, the timer of an enabled transition T keeps the current value
+- If in the new marking T is disabled, the timer of an enabled transition T is reset and a new value is generated when needed.
+- There is an **enabling memory variable** that is associated to every transition and measures the time the transition has been enabled starting from the last activation instant.
+
+### Age memory
+
+This strategy works as follows:
+
+- At every firing of a transition the timer keeps the current value also when aborting
+- An age memory variable associated to every transition measures the cumulative enabling time of the transition starting from the last instant in which it fired
+- The memory is lost only when the transition fires
+
+### Preemptive repeat identical
+
+This strategy works as follows:
+
+- When a transition is aborted we don't keep track of the current value of the timer, we keep the initial value
+- If T is enabled with a firing time d, is disabled before of firing then the novel time to fire of T when it will be enabled again will still be d
+- Again we loose memory only when the transition fires.
+
+### Reactivation
+
+This strategy is similar to resampling but with a difference, this is not applied to every firing of a transition. The timer of an activated transition T is reset only when:
+> T was activated in a marking in which the activation predicate was valid and the firing of another transition generates a marking in which the reactivation predicate is valid and in which T is still enabled.
+
+### Summary of all the memory policies
+
+![memory_policies](../Screenshots/memory_policies.png)
+
+\* the timer resets to the initial value, d  
+** depends on the marking(activation/reactivation **predicates**)

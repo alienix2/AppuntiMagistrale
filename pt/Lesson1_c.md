@@ -49,3 +49,20 @@ This is the layer where the actual data is sent. This is the layer where the HTT
 **IP:** Internet Protocol, this is the address of the device. This is a 32 bit address. The IP is divided into two parts, the network part and the host part. The network part is the part that is common to all the devices in the same network, the host part is the part that is unique to the device. The IP is assigned to the device when it connects to the network. It should be noted that 32 bits are not enough to represent all the machines on the net. This is why we have the NAT (Network Address Translation) that allows to have a single IP (**public IP**) for a network and then assign the devices inside the network a different IP (internally, **private IP**) that is then translated to the public IP when it goes out of the network. If you want a private IP address you must pay for it. (*Note:* more on them on the slides like IPv6, IP classes)
 
 **URL:** Uniform Resource Locator, this is the address of a resource on the web. This is a human readable address that is then translated into an IP address by the DNS (Domain Name System) protocol.
+
+**DNS:** Domain Name System, this is the protocol that translates the URL into an IP address.
+
+### Address vs post
+
+It's important to know the difference between the definition of address and port. Knowing only addresses is usually not enough as I don't really know the services that each IP address has attached (on different ports).
+
+There are 65535 ports, the first 1024 are reserved for the most common services (well known ports). Some examples:
+
+- ssh (22)
+- http (80)
+- https (443)
+- ftp (21)
+- etc.
+
+*Note:* we should expect to have different ports than the standards one sometimes. These are just the standards one but the developers can choose any port they want. Given that some services actually function well on the default ports and therefore the developers usually keep them as the default ones (*I.e:* I know that a browser will look on port 80 or 443 so I cannot change that as it won't work otherwise).  
+*Note:* a service might use multiple ports.
