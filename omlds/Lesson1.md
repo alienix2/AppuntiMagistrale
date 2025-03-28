@@ -158,4 +158,23 @@ $$A = WJW^{-1}$$
 
 Where $J$ is the Jordan form of $A$.
 
-*Note:* we wont' go into details of the Jordan form and we will skip the proof of the matrix exponential for non-diagonalizable matrices. In general we can use a software solution like for instance:
+*Note:* we wont' go into details of the Jordan form and we will skip the proof of the matrix exponential for non-diagonalizable matrices. In general we can use a software solution in Python, Julia or Matlab (or even something else actually)
+
+## Eigenvalues, eigenvectors and modes
+
+Starting from an example, we can consider a **two-state autonomous linear system**. We have two (real) eigenvectors $w_1$ and $w_2$ corresponding to two eigenvalues: $\lambda_1$ and $\lambda_2$.
+
+If we consider $x_0 = w_i$ then $Aw_i = \lambda_iw_i \rightarrow \dot{x}(0) = Ax_0 = Aw_i = \lambda_iw_i$.
+
+The direction of $\dot{x}(0)$ is the same as the direction of $w_i$ and the magnitude of $\dot{x}(0)$ is $\lambda_i$ times the magnitude of $w_i$. *I.e:* $||x(t)||$ depends on $sgn(\lambda_i)$.
+
+What happens if we consider $x_0 \neq w_i$? We can decompose $x_0$ in the eigenvectors basis: $x_0 = \alpha_1w_1 + \alpha_2w_2$. Then $x(t) = \alpha_1e^{\lambda_1t}w_1 + \alpha_2e^{\lambda_2t}w_2$.
+
+**In general we have that:** $x(t) = \sum_{i=1}^{n}\alpha_i e^{\lambda_it}w_i$.
+The state-trajectory is the natural response for a given $x_0$: $x(t) = e^{At}x_0 = We^{\Lambda t}W^{-1} x_0 = W\begin{bmatrix} e^{\lambda_1t} & 0 \\ 0 & e^{\lambda_2t} \end{bmatrix}\alpha = \sum_{i=1}^{n}\alpha_i e^{\lambda_it}w_i$. P(M(t) = m) + \sum_{a \in \Tau} C(a) lim P(A(t) = a)$$
+
+### In discrete-time systems
+
+In discrete-time systems we have that $x(k+1) = Ax(k)$. We can consider that $A = W\Lambda W^{-1}$ and $x(k) = W\Lambda^kW^{-1}x(0)$. We can consider that $x(0) = \alpha_1w_1 + \alpha_2w_2$ and then $x(t) = \sum_{i=1}^{n}\alpha_i\lambda_i^kw_i$.
+
+*Note:* check the slides for examples about both diagonalizable and non-diagonalizable matrices
