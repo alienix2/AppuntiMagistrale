@@ -136,4 +136,4 @@ $$\begin{cases} \hat{x}(k+1) = (A + BK - LC)\hat{x}(k) + Bv(k) + Ly(k) \\ u(k) =
 
 *Note:* by looking at $y(k)$ we can see that L has an effect on the transient, even if it should be noted that asymptotically if the two blocks are stable then everything will be fine.
 
-**Rule of thumb:** place the observer eigenvalues $\approx$ 10 times faster than the controller eigenvalues. (*Note:* this means that we will likely have a very big spike in the beginning but we will also have a fast convergence)
+**Rule of thumb:** place the observer eigenvalues $\approx$ 10 times faster than the controller eigenvalues. (*Note:* this means that we will likely have a very big spike in the beginning but we will also have a fast convergence).
