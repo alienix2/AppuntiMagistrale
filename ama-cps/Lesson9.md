@@ -15,9 +15,9 @@ In this model we make assumptions on the behavior of processes, communication an
 ## Datagram service
 
 - Unicast and broadcast
-- messages are univocally determined
+- messages are unequivocally determined
 - no upper bound in the delay
-- there is a time-out in message transimission
+- there is a time-out in message transmission
 - time is proportional to dimensions of the message
 - only omission and timing failures (cause corrupt messages aren't considered probable)
 - process can have crash and timing failure
@@ -101,3 +101,9 @@ for it.
 - A process p that performs restart must re-initialize its protocol state before moving to the UP state.
 
 *Note:* In this way the invariant is respected even when some process that knows the proposed value is "replaced" by other processes after having suffered a crash.
+
+**Note:** Missing part here
+
+## Underlying stochastic process
+
+The underlying stochastic process of a SAN is dependent on what you are modeling. It might be like an SPN or a GSPN or something different (that we haven't seen). In some cases I must (or should) use a simulator if I cannot find a formal model that I can use easily to represent them.

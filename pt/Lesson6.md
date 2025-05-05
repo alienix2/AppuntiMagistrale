@@ -24,3 +24,12 @@ Some tools can be specific for a certain kind of vulnerability, others can be mo
 *Example:* In class we looked at **OpenVAS**
 
 *Note:* the automatic scanners and all the tools in general are very cool but most of the times what you need to find are all **corner cases** and therefore they won't be easy to find.
+
+In a real environment we won't find vulnerabilities that are easily found by simply looking at the versions of the software. We need to look at the specific configuration of the software and how it is used in the environment.
+
+## How to find vulnerabilities by hand
+
+In order to find vulnerabilities you can start by looking at **weaknesses** inside well known repositories like:
+
+- **Mitre's CWE**: `https://cwe.mitre.org/`
+- **OWASP**: `https://owasp.org/www-project-top-ten/`
